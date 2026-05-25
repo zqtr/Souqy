@@ -29,7 +29,7 @@ npm run dev
 
 New local environments should create `.env` manually from your private secret manager.
 
-Run workers in a second terminal:
+Run workers in a second terminal when developing queue processors:
 
 ```bash
 npm run build
@@ -60,19 +60,19 @@ GET /queues
 
 ## Docker
 
-Build the API container:
+Build the runtime container:
 
 ```bash
 docker build -t cranl-runtime .
 ```
 
-Run the API:
+Run the API and workers together:
 
 ```bash
 docker run --rm -p 3000:3000 --env-file .env cranl-runtime
 ```
 
-Run workers from the same image:
+Run only workers from the same image if your host splits API and worker services:
 
 ```bash
 docker run --rm --env-file .env cranl-runtime npm run worker
@@ -86,10 +86,10 @@ CranL is independently deployable from the main Souqna frontend:
 2. Deploy `apps/cranl-runtime` to a separate Node-capable host.
 3. Attach a managed Redis instance and set `REDIS_URL`.
 4. Set provider credentials such as `OPENAI_API_KEY`, `OLLAMA_URL`, and `HUGGINGFACE_API_KEY`.
-5. Run at least one API process using `npm start`.
-6. Run one or more worker processes using `npm run worker`.
+5. Run the default Docker command or `npm start` to start the API and workers together.
+6. If the host supports separate service roles, run API with `npm run start:api` and workers with `npm run worker`.
 
-Scale API and worker processes separately. Workers can be placed on machines with provider access, GPU access, or private network access without changing the frontend deployment.
+Scale API and worker processes separately when the host supports multiple process roles. Workers can be placed on machines with provider access, GPU access, or private network access without changing the frontend deployment.
 
 ## Environment
 

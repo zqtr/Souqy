@@ -2,6 +2,7 @@ import express, { type ErrorRequestHandler } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { logger } from './logs/logger';
 import { healthRouter } from './routes/health';
+import { jobsRouter } from './routes/jobs';
 import { queuesRouter } from './routes/queues';
 import { rootRouter } from './routes/root';
 import { workersRouter } from './routes/workers';
@@ -28,6 +29,7 @@ export function createApp() {
   app.use(healthRouter);
   app.use(workersRouter);
   app.use(queuesRouter);
+  app.use(jobsRouter);
 
   app.use((_req, res) => {
     res.status(404).json({

@@ -54,9 +54,13 @@ docker run --rm -p 6379:6379 redis:7-alpine
 GET /health
 GET /workers
 GET /queues
+POST /jobs/image-generation
+POST /jobs/ai-chat
+GET /jobs/:queue/:jobId
 ```
 
 `/queues` reports BullMQ job counts for every CranL queue. `/workers` reports the worker definitions compiled into this service.
+Job submission and status endpoints require `Authorization: Bearer <CRANL_API_KEY>`.
 
 ## Docker
 
@@ -97,6 +101,7 @@ Scale API and worker processes separately when the host supports multiple proces
 PORT=3000
 NODE_ENV=production
 LOG_LEVEL=info
+CRANL_API_KEY=
 REDIS_URL=
 OPENAI_API_KEY=
 OLLAMA_URL=

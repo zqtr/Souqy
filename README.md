@@ -58,4 +58,8 @@ If the dev server throws `Cannot find module './vendor-chunks/@vercel.js'` (or o
 - Build Type: Dockerfile
 - Port: `3000`
 
+The Vercel frontend talks to CranL through server-side API routes under `/api/cranl/*`.
+Set `CRANL_RUNTIME_URL` and `CRANL_API_KEY` in Vercel, and set the same
+`CRANL_API_KEY` in the CranL deployment.
+
 **Souqna Pulse** — optional macOS companion that streams dashboard events. See [apps/pulse/README.md](apps/pulse/README.md). Uses `PULSE_ADMIN_TOKEN` from env (see `src/lib/env.ts`).

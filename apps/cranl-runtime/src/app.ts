@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { logger } from './logs/logger';
 import { healthRouter } from './routes/health';
 import { queuesRouter } from './routes/queues';
+import { rootRouter } from './routes/root';
 import { workersRouter } from './routes/workers';
 
 export function createApp() {
@@ -23,6 +24,7 @@ export function createApp() {
     next();
   });
 
+  app.use(rootRouter);
   app.use(healthRouter);
   app.use(workersRouter);
   app.use(queuesRouter);

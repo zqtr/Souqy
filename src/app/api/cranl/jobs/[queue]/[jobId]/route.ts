@@ -23,7 +23,8 @@ export async function GET(
       return NextResponse.json({ ok: false, error: 'job_not_found' }, { status: 404 });
     }
 
-    const { metadata: _metadata, ...publicJob } = job;
+    const publicJob = { ...job };
+    delete publicJob.metadata;
     return NextResponse.json({ ok: true, job: publicJob });
   } catch (error) {
     return cranlErrorResponse(error);

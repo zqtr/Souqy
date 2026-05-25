@@ -24,7 +24,6 @@ import {
   FileImage,
   FolderKanban,
   ImagePlus,
-  History,
   ImageIcon,
   Lightbulb,
   Layers,
@@ -32,19 +31,15 @@ import {
   Maximize2,
   Mic2,
   Moon,
-  Music2,
   Package,
   Palette,
   PanelLeft,
   Plus,
   Printer,
-  Settings,
   ShoppingBag,
   Sparkles,
   Store,
   TestTube2,
-  Type,
-  Upload,
   UsersRound,
   Video,
   Wand2,
@@ -1508,7 +1503,6 @@ export function SouqyStudioIntro({ locale }: Props) {
             moduleId={activeModule}
             isRtl={isRtl}
             copy={copy}
-            assets={assets}
             latestAssets={latestAssets}
             selectedAsset={selectedAsset}
             currentType={currentType}
@@ -1539,7 +1533,6 @@ function ModulePanel({
   moduleId,
   isRtl,
   copy,
-  assets,
   latestAssets,
   selectedAsset,
   currentType,
@@ -1563,7 +1556,6 @@ function ModulePanel({
   moduleId: StudioModuleId;
   isRtl: boolean;
   copy: ReturnType<typeof studioCopy>;
-  assets: SouqyStudioAsset[];
   latestAssets: SouqyStudioAsset[];
   selectedAsset: StudioCard | null;
   currentType: (typeof CREATION_TYPES)[number];

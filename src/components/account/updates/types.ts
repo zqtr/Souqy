@@ -1,0 +1,21 @@
+export type AccountUpdateView = {
+  id: string;
+  title: string;
+  body: string;
+  type: 'feature' | 'billing' | 'system' | 'warning';
+  version: string | null;
+  priority: number;
+  publishedAt: string;
+  expiresAt: string | null;
+  summary: string | null;
+  badge: string | null;
+  ctaLabel: string | null;
+  ctaHref: string | null;
+  detailsHref: string | null;
+  imageUrl: string | null;
+  videoUrl: string | null;
+  previewPayload: Record<string, unknown>;
+  bannerPayload: Record<string, unknown>;
+  isSticky: boolean;
+  audience: Record<string, unknown>;
+};

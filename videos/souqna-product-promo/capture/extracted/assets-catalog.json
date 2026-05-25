@@ -1,0 +1,303 @@
+[
+  {
+    "url": "http://127.0.0.1:3000/favicon.svg",
+    "type": "Image",
+    "contexts": [
+      "img[src]",
+      "link[rel=\"preload\"]",
+      "link[rel=\"shortcut icon\"]",
+      "link[rel=\"icon\"]"
+    ],
+    "notes": null,
+    "nearestHeading": "A workplace forhome businesses.",
+    "aboveFold": true
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/chunks/webpack.js?v=1778356909409",
+    "type": "Other",
+    "contexts": [
+      "link[rel=\"preload\"]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://localhost:3000/en/opengraph-image?7310b0752fe6c2c3",
+    "type": "Image",
+    "contexts": [
+      "meta[og:image]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://localhost:3000/en/twitter-image?43c6fafd994a07d5",
+    "type": "Image",
+    "contexts": [
+      "meta[twitter:image]"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/92845549c2793110-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/6d49ede7c13002e4-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/236b1eaf23b201e7-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/152f1a07768efb51-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/f819a431fe84d1ae-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/506e63dbe061f6bb-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/0bb9a02f587d380f-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/4026267671c0251b-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/6bdcda0df883cfca-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/60b365caed26e800-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/20ae2eed82f66a4b-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/bd83d899b0072b17-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/33e85372a8a7fe0b-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/feae03644cce9074-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/84885451a6b31978-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/db9d659a1acad1e2-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/af2e87f5d61b5665-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/cc038af06ec3045a-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/4277f63057c7f0f3-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/21c8f4aca35ad9ad-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/1a18c2901fa91275-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/793229da76c756e0-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/555d93f074d093de-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/41e505bd23dca566-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/d3cbb585ad28fc77-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/382095d3c11210c6-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/98f85d2c760fe2a8-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/9445b2dcbb7c96ff-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/418eafb3131494c6-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/fe9b4bda8cab8761-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/d2f80c7d2eb0f463-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/2e8327157f54978f-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  },
+  {
+    "url": "http://127.0.0.1:3000/_next/static/media/993a1c6664ef1b3b-s.p.woff2",
+    "type": "Font",
+    "contexts": [
+      "css url()"
+    ],
+    "notes": null
+  }
+]

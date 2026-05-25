@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="t">
+  <title id="t">Salon plate · botanical</title>
+  <rect width="800" height="1000" fill="#e8dcc6"/>
+  <g fill="none" stroke="#8a2a35" stroke-width="2" opacity="0.85">
+    <path d="M400 940 C 400 740 380 640 320 540"/>
+    <path d="M400 940 C 400 760 420 660 480 560"/>
+    <path d="M400 800 C 360 760 320 740 270 740"/>
+    <path d="M400 760 C 440 720 480 700 530 700"/>
+    <path d="M400 700 C 360 660 320 640 280 640"/>
+    <path d="M400 660 C 440 620 480 600 520 600"/>
+  </g>
+  <g fill="#8a2a35" opacity="0.85">
+    <ellipse cx="270" cy="740" rx="48" ry="20" transform="rotate(-15 270 740)"/>
+    <ellipse cx="530" cy="700" rx="48" ry="20" transform="rotate(15 530 700)"/>
+    <ellipse cx="280" cy="640" rx="40" ry="18" transform="rotate(-20 280 640)"/>
+    <ellipse cx="520" cy="600" rx="40" ry="18" transform="rotate(20 520 600)"/>
+    <ellipse cx="320" cy="540" rx="34" ry="16" transform="rotate(-25 320 540)"/>
+    <ellipse cx="480" cy="560" rx="34" ry="16" transform="rotate(25 480 560)"/>
+  </g>
+  <rect x="320" y="940" width="160" height="60" fill="#8a2a35" opacity="0.85"/>
+  <text x="400" y="980" text-anchor="middle" font-family="ui-serif, Georgia, serif" font-style="italic" font-size="22" fill="#e8dcc6">study iv</text>
+</svg>

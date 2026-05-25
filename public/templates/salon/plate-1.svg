@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="t">
+  <title id="t">Salon plate · still life</title>
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4ece1"/>
+      <stop offset="100%" stop-color="#e8dcc6"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#g1)"/>
+  <g fill="none" stroke="#8a2a35" stroke-width="1.5" opacity="0.55">
+    <line x1="60" y1="60" x2="740" y2="60"/>
+    <line x1="60" y1="60" x2="60" y2="940"/>
+    <line x1="740" y1="60" x2="740" y2="940"/>
+    <line x1="60" y1="940" x2="740" y2="940"/>
+  </g>
+  <ellipse cx="400" cy="640" rx="220" ry="60" fill="#8a2a35" opacity="0.12"/>
+  <rect x="280" y="320" width="240" height="320" rx="6" fill="#8a2a35" opacity="0.85"/>
+  <circle cx="400" cy="320" r="80" fill="#f1e3c8"/>
+  <circle cx="400" cy="320" r="80" fill="none" stroke="#8a2a35" stroke-width="2"/>
+  <text x="400" y="900" text-anchor="middle" font-family="ui-serif, Georgia, serif" font-style="italic" font-size="28" fill="#8a2a35" opacity="0.7">no. 01</text>
+</svg>

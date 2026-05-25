@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="t">
+  <title id="t">Salon plate · interior</title>
+  <rect width="800" height="1000" fill="#f1e3c8"/>
+  <rect x="0" y="640" width="800" height="360" fill="#8a2a35" opacity="0.18"/>
+  <g stroke="#8a2a35" stroke-width="1.4" opacity="0.6" fill="none">
+    <line x1="0" y1="640" x2="800" y2="640"/>
+    <line x1="120" y1="640" x2="120" y2="1000"/>
+    <line x1="680" y1="640" x2="680" y2="1000"/>
+  </g>
+  <rect x="160" y="220" width="180" height="380" fill="#8a2a35" opacity="0.7"/>
+  <rect x="380" y="280" width="260" height="320" fill="#8a2a35" opacity="0.45"/>
+  <circle cx="250" cy="170" r="40" fill="#8a2a35" opacity="0.75"/>
+  <text x="400" y="940" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="18" fill="#8a2a35" letter-spacing="0.25em">EXHIBITION · NO 02</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title-bazaar-1">
+  <title id="title-bazaar-1">Sample bazaar product 1</title>
+  <desc>Stylized placeholder rendered in the bazaar template palette.</desc>
+  <rect width="600" height="600" fill="#EFE7CC"/>
+  <g opacity="0.08" stroke="#1F2117" stroke-width="1">
+      <line x1="60" y1="60" x2="60" y2="540"/><line x1="60" y1="60" x2="540" y2="60"/><line x1="120" y1="60" x2="120" y2="540"/><line x1="60" y1="120" x2="540" y2="120"/><line x1="180" y1="60" x2="180" y2="540"/><line x1="60" y1="180" x2="540" y2="180"/><line x1="240" y1="60" x2="240" y2="540"/><line x1="60" y1="240" x2="540" y2="240"/><line x1="300" y1="60" x2="300" y2="540"/><line x1="60" y1="300" x2="540" y2="300"/><line x1="360" y1="60" x2="360" y2="540"/><line x1="60" y1="360" x2="540" y2="360"/><line x1="420" y1="60" x2="420" y2="540"/><line x1="60" y1="420" x2="540" y2="420"/><line x1="480" y1="60" x2="480" y2="540"/><line x1="60" y1="480" x2="540" y2="480"/><line x1="540" y1="60" x2="540" y2="540"/><line x1="60" y1="540" x2="540" y2="540"/>
+    </g>
+    <g transform="translate(120 200)">
+      <rect x="0" y="0" width="360" height="40" rx="6" fill="#1F2117" opacity="0.92"/>
+      <rect x="20" y="56" width="320" height="40" rx="6" fill="#1F2117" opacity="0.78"/>
+      <rect x="40" y="112" width="280" height="40" rx="6" fill="#1F2117" opacity="0.62"/>
+      <rect x="60" y="168" width="240" height="40" rx="6" fill="#A2864B" opacity="0.95"/>
+    </g>
+    <g transform="translate(300 480)" fill="#1F2117" opacity="0.35">
+      <circle cx="-90" cy="0" r="4"/>
+      <circle cx="-30" cy="0" r="4"/>
+      <circle cx="30" cy="0" r="4"/>
+      <circle cx="90" cy="0" r="4"/>
+    </g>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#1F2117" opacity="0.55">
+    <text x="40" y="560" letter-spacing="2">SOUQNA · SAMPLE · 01</text>
+  </g>
+</svg>

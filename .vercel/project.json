@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_1tPAsmWFNepOY6aMvqrpHkdD7RPO",
+  "orgId": "team_25fd9TtENLV3DtiWmPO89Zgn",
+  "projectName": "souqna",
+  "settings": {
+    "createdAt": 1777064207072,
+    "framework": "nextjs",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}

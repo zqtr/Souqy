@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="TikTok Pixel">
+  <defs>
+    <linearGradient id="tt-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f1b16"/>
+      <stop offset="100%" stop-color="#3a2f24"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="96" height="96" rx="22" fill="url(#tt-bg)"/>
+  <g transform="translate(28 22)">
+    <path d="M 22 0 v 28 a 12 12 0 1 1 -12 -12 v 6 a 6 6 0 1 0 6 6 v -28 h 6 a 12 10 0 0 0 8 7 v 7 a 18 16 0 0 1 -8 -3"
+          fill="#f1e9d7" opacity="0.95"/>
+    <path d="M 24 2 v 26 a 14 14 0 1 1 -14 -14 v 8 a 6 6 0 1 0 6 6 v -28"
+          fill="none" stroke="#a8893f" stroke-width="1.4" opacity="0.5"/>
+  </g>
+  <circle cx="76" cy="20" r="6" fill="#8b3a3a"/>
+  <text x="48" y="86" text-anchor="middle" font-family="Inter, system-ui, sans-serif"
+        font-size="9" font-weight="700" fill="#a8893f" letter-spacing="0.2em">PIXEL</text>
+</svg>

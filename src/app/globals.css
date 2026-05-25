@@ -1,0 +1,555 @@
+@import 'tailwindcss';
+
+/* Bind Tailwind's `dark:` variant to our cookie-driven [data-theme='dark']
+   attribute on <html>. Without this, `dark:` falls back to
+   prefers-color-scheme and the homepage toggle has no visible effect. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Rotating conic-gradient border used by the hero prompt bar.
+   Registering --hero-prompt-angle as an @property lets us animate
+   the gradient angle smoothly. */
+@property --hero-prompt-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes hero-prompt-spin {
+  to {
+    --hero-prompt-angle: 360deg;
+  }
+}
+
+@keyframes hero-prompt-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ─── Brand tokens ──────────────────────────────────────────────────
+   Five colors. No others. Mirrored in src/lib/tokens.ts for inline-style
+   needs (SVG strokes, framer values).
+   ─────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Sand */
+  --color-sand: #e8dcc4;
+  --color-sand-deep: #dcceb1;
+  --color-sand-pale: #f1e9d7;
+
+  /* Maroon */
+  --color-maroon: #8b3a3a;
+  --color-maroon-deep: #6a2a2a;
+
+  /* Gold (CTA only) */
+  --color-gold: #c9a961;
+  --color-gold-deep: #a8893f;
+
+  /* Silver (tech signal, sparingly) */
+  --color-silver: #c5c5c5;
+  --color-silver-pale: #d8d8d8;
+
+  /* Charcoal (typography surface — never pure black) */
+  --color-charcoal: #2a2a2a;
+  --color-charcoal-soft: #3a3633;
+
+  /* Ink (primary text) */
+  --color-ink: #1f1b16;
+
+  /* Type families — wired in src/lib/fonts.ts via next/font */
+  --font-english: var(--font-exo-2), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-english);
+  --font-serif: var(--font-exo-2), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), var(--font-exo-2), ui-monospace, SFMono-Regular, monospace;
+  --font-arabic: var(--font-thmanyah-serif-display), ui-serif, Georgia, serif;
+  --font-arabic-serif: var(--font-thmanyah-serif-display), ui-serif, Georgia, serif;
+
+  /* Container */
+  --max-w-editorial: 1600px;
+
+  /* Breakpoint tokens. Mirrored in src/lib/breakpoints.ts (and the
+     useViewport() hook) so JS and CSS speak the same language.
+     sm  = phones (≤  639px)
+     md  = tablets in portrait (≥  640px)
+     lg  = tablets landscape / small laptops (≥  1024px)
+     xl  = desktops (≥ 1280px) */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+
+  /* Fluid gutter system used by every page-level container. Components
+     should consume var(--gutter) instead of hand-rolling px values so a
+     single change here re-paces the entire app. */
+  --gutter-tight: clamp(16px, 4vw, 32px);
+  --gutter: clamp(20px, 5vw, 56px);
+  --gutter-loose: clamp(24px, 6vw, 80px);
+}
+
+/* ─── Theme tokens (light + dark) ────────────────────────────────────
+   Brand colors above stay constant. SEMANTIC tokens here flip per
+   theme. Components should consume these — never hardcode brand vars
+   for surface/ink/rule unless they truly want a theme-locked look.
+
+   Activated by `[data-theme="light"]` or `[data-theme="dark"]` on
+   <html>. The default `:root` block is light so SSR without a cookie
+   still renders a sane page; an inline <head> script flips the
+   attribute before paint based on cookie / system preference.
+   ─────────────────────────────────────────────────────────────────── */
+:root {
+  /* Runtime font variables. These mirror @theme so every document shell
+     resolves the bundled fonts even before Tailwind utility generation. */
+  --font-english: var(--font-exo-2), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-english);
+  --font-serif: var(--font-exo-2), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), var(--font-exo-2), ui-monospace, SFMono-Regular, monospace;
+  --font-arabic: var(--font-thmanyah-serif-display), ui-serif, Georgia, serif;
+  --font-arabic-serif: var(--font-thmanyah-serif-display), ui-serif, Georgia, serif;
+  --font-arabic-text: var(--font-thmanyah-serif-text), ui-serif, Georgia, serif;
+}
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* Page surfaces */
+  --surface-bg: #e8dcc4; /* sand */
+  --surface-elevated: #f1e9d7; /* sand-pale */
+  --surface-overlay: #ffffff;
+  --surface-sunken: color-mix(in srgb, #1f1b16 4%, #e8dcc4);
+  --surface-rule: color-mix(in srgb, #1f1b16 12%, transparent);
+  --surface-rule-strong: color-mix(in srgb, #1f1b16 22%, transparent);
+
+  /* "Contrast" surfaces — dark blocks (Begin, MarqueeBand, Atelier, etc.).
+     In light mode they're a deep charcoal island; in dark mode they
+     invert to a gentle elevated dark so they still read as a discrete
+     section without becoming a bright punch. */
+  --surface-contrast: #2a2a2a; /* charcoal */
+  --surface-contrast-elevated: #3a3633; /* charcoal-soft */
+  --ink-on-contrast: #f1e9d7; /* always reads as light-on-dark in light mode */
+  --ink-on-contrast-muted: color-mix(in srgb, #f1e9d7 70%, transparent);
+
+  /* Body ink */
+  --ink-strong: #1f1b16; /* ink */
+  --ink-muted: color-mix(in srgb, #1f1b16 65%, transparent);
+  --ink-faint: color-mix(in srgb, #1f1b16 40%, transparent);
+  --ink-on-accent: #f1e9d7; /* text on maroon CTAs */
+  --ink-on-gold: #1f1b16; /* gold is always light → text is always dark */
+
+  --accent: #8b3a3a; /* maroon */
+  --accent-strong: #6a2a2a;
+  --accent-soft: color-mix(in srgb, #8b3a3a 12%, transparent);
+  --accent-wash: color-mix(in srgb, #8b3a3a 6%, transparent);
+
+  /* Admin-chrome accent. Used by /account sidebar + dashboard
+     primitives. Distinct from --accent (the marketing maroon CTA) so
+     the dashboard can run a calm silver look while the storefront
+     stays warm. Overridable per-user via [data-admin-accent="..."]. */
+  --admin-accent: #6b7280; /* silver / cool gray */
+  --admin-accent-soft: color-mix(in srgb, #6b7280 14%, transparent);
+
+  --shadow-card: 0 1px 2px rgba(31, 27, 22, 0.06), 0 8px 24px rgba(31, 27, 22, 0.06);
+  --shadow-popover: 0 12px 36px rgba(31, 27, 22, 0.18);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --surface-bg: #1f1b16; /* deeper than charcoal so inverted contrast panels still read */
+  --surface-elevated: #2d2823; /* warm-shifted so cards visibly lift off the page */
+  --surface-overlay: #1f1f1f;
+  --surface-sunken: #161310;
+  --surface-rule: color-mix(in srgb, #f1e9d7 22%, transparent);
+  --surface-rule-strong: color-mix(in srgb, #f1e9d7 34%, transparent);
+
+  /* In dark mode the "contrast" panels stay dark — they just become a
+     slightly elevated charcoal so they still read as a discrete island
+     without inverting all-the-way to a bright surface (which would
+     fight the page chrome and break embedded dark forms). */
+  --surface-contrast: #2a2a2a; /* charcoal */
+  --surface-contrast-elevated: #3a3633; /* charcoal-soft */
+  --ink-on-contrast: #f1e9d7;
+  --ink-on-contrast-muted: color-mix(in srgb, #f1e9d7 78%, transparent);
+
+  --ink-strong: #f1e9d7;
+  --ink-muted: color-mix(in srgb, #f1e9d7 78%, transparent);
+  --ink-faint: color-mix(in srgb, #f1e9d7 55%, transparent);
+  --ink-on-accent: #f1e9d7;
+  --ink-on-gold: #1f1b16; /* gold pill stays light → text stays dark */
+
+  --accent: #a64444;
+  --accent-strong: #8b3a3a;
+  --accent-soft: color-mix(in srgb, #a64444 18%, transparent);
+  --accent-wash: color-mix(in srgb, #a64444 8%, transparent);
+
+  --admin-accent: #d4d4d8; /* silver */
+  --admin-accent-soft: color-mix(in srgb, #d4d4d8 18%, transparent);
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-popover: 0 16px 44px rgba(0, 0, 0, 0.55);
+}
+
+/* ─── Admin accent presets ──────────────────────────────────────────
+   Applied via `data-admin-accent` on <html> in the /account chrome
+   layout. The 'mono' and 'slate' presets also override surface tokens
+   so the entire admin shell flips to a different neutral palette,
+   independent of the storefront's cream identity. */
+
+/* Mono — pure white/black. */
+[data-theme='light'][data-admin-accent='mono'] {
+  --surface-bg: #ffffff;
+  --surface-elevated: #fafafa;
+  --surface-overlay: #ffffff;
+  --surface-sunken: #f5f5f5;
+  --surface-rule: rgba(10, 10, 10, 0.08);
+  --surface-rule-strong: rgba(10, 10, 10, 0.16);
+  --ink-strong: #0a0a0a;
+  --ink-muted: rgba(10, 10, 10, 0.62);
+  --ink-faint: rgba(10, 10, 10, 0.38);
+  --admin-accent: #0a0a0a;
+  --admin-accent-soft: rgba(10, 10, 10, 0.06);
+}
+[data-theme='dark'][data-admin-accent='mono'] {
+  --surface-bg: #0a0a0a;
+  --surface-elevated: #171717;
+  --surface-overlay: #1a1a1a;
+  --surface-sunken: #050505;
+  --surface-rule: rgba(250, 250, 250, 0.10);
+  --surface-rule-strong: rgba(250, 250, 250, 0.20);
+  --ink-strong: #fafafa;
+  --ink-muted: rgba(250, 250, 250, 0.62);
+  --ink-faint: rgba(250, 250, 250, 0.38);
+  --admin-accent: #fafafa;
+  --admin-accent-soft: rgba(250, 250, 250, 0.08);
+}
+
+/* Slate — cool gray system. */
+[data-theme='light'][data-admin-accent='slate'] {
+  --surface-bg: #f8fafc;
+  --surface-elevated: #f1f5f9;
+  --surface-overlay: #ffffff;
+  --surface-sunken: #e2e8f0;
+  --surface-rule: rgba(15, 23, 42, 0.10);
+  --surface-rule-strong: rgba(15, 23, 42, 0.20);
+  --ink-strong: #0f172a;
+  --ink-muted: rgba(15, 23, 42, 0.62);
+  --ink-faint: rgba(15, 23, 42, 0.40);
+  --admin-accent: #334155;
+  --admin-accent-soft: rgba(51, 65, 85, 0.10);
+}
+[data-theme='dark'][data-admin-accent='slate'] {
+  --surface-bg: #020617;
+  --surface-elevated: #0f172a;
+  --surface-overlay: #1e293b;
+  --surface-sunken: #010410;
+  --surface-rule: rgba(248, 250, 252, 0.10);
+  --surface-rule-strong: rgba(248, 250, 252, 0.20);
+  --ink-strong: #f8fafc;
+  --ink-muted: rgba(248, 250, 252, 0.62);
+  --ink-faint: rgba(248, 250, 252, 0.40);
+  --admin-accent: #cbd5e1;
+  --admin-accent-soft: rgba(203, 213, 225, 0.12);
+}
+
+/* Warm — keep the original Souqna cream. No surface override; just
+   restore the warm gold accent for users who liked it. */
+[data-theme='light'][data-admin-accent='warm'] { --admin-accent: #a8893f; --admin-accent-soft: color-mix(in srgb, #a8893f 14%, transparent); }
+[data-theme='dark'][data-admin-accent='warm']  { --admin-accent: #c8a14a; --admin-accent-soft: color-mix(in srgb, #c8a14a 18%, transparent); }
+
+/* ─── Base ──────────────────────────────────────────────────────────
+   No CSS reset beyond Tailwind preflight. Body anchors to the active
+   theme's surface tokens.
+   ─────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Hard guard against horizontal pan/zoom-out past content. Any wide
+       child (long word, oversized SVG, off-canvas decoration) is clipped
+       at the viewport edge instead of stretching the page width. */
+    overflow-x: clip;
+  }
+
+  body {
+    background: var(--surface-bg);
+    color: var(--ink-strong);
+    font-family: var(--font-sans);
+    overscroll-behavior: none;
+    overflow-x: clip;
+    /* Belt + braces: never let body exceed the viewport width. */
+    max-width: 100vw;
+    transition:
+      background 240ms ease,
+      color 240ms ease;
+  }
+
+  /* Long content (URLs, slugs, untranslated proper nouns) should wrap
+     instead of forcing the layout wider than the viewport on phones. */
+  p,
+  li,
+  dd,
+  dt,
+  span,
+  a,
+  h1,
+  h2,
+  h3,
+  h4 {
+    overflow-wrap: anywhere;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* iOS zooms in on focus when an input's effective font-size is <16px.
+     Lift inputs/textareas/selects to 16px on phones so the page never
+     auto-zooms — but keep small typography on tablet+ where the zoom
+     heuristic doesn't apply. */
+  @media (max-width: 767px) {
+    input:not([type='checkbox']):not([type='radio']):not([type='range']),
+    select,
+    textarea {
+      font-size: max(16px, 1em);
+    }
+  }
+
+  /* RTL → swap default sans to Arabic family */
+  html[lang='ar'] body,
+  html[dir='rtl'] body,
+  :lang(ar) {
+    font-family: var(--font-arabic);
+    font-weight: 700;
+  }
+
+  html[lang='ar'] :where(h1, h2, h3),
+  html[dir='rtl'] :where(h1, h2, h3) {
+    font-family: var(--font-arabic-serif);
+    font-weight: 700;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-gold) 40%, transparent);
+    color: var(--ink-strong);
+  }
+
+  .split-parent {
+    line-height: inherit;
+  }
+
+  .split-line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .split-word,
+  .split-char {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+
+  /* Focus — visible, on-brand, never removed */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Disable smooth-scroll for users who asked for less motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    /* Marquee strips are content rotation — the visitor can only see one
+       slice of the strip at any moment, so freezing it would hide most
+       of the labels. Exempt the marquee track and let it scroll at its
+       configured speed (set on the element as `--mrq-speed`) regardless
+       of the visitor's reduced-motion preference. */
+    .souqna-marquee-track {
+      animation-duration: var(--mrq-speed, 60s) !important;
+      animation-iteration-count: infinite !important;
+    }
+  }
+}
+
+/* ─── RTL helpers ───────────────────────────────────────────────
+   The arrow glyph in CTA pills points → for LTR; in RTL we flip the
+   glyph so it tracks the reading order without changing the copy.
+   ─────────────────────────────────────────────────────────────── */
+html[dir='rtl'] .rtl-flip-arrow {
+  transform: scaleX(-1);
+}
+
+body.homepage-blank > nav[aria-label='Souqna'],
+body.homepage-blank > footer:not([data-homepage-footer]),
+html:has([data-homepage-blank]) body > nav[aria-label='Souqna'],
+html:has([data-homepage-blank]) body > footer:not([data-homepage-footer]) {
+  display: none;
+}
+
+[data-theme='light'] [data-homepage-blank] {
+  color: #0a0a0a;
+}
+
+[data-theme='light'] [data-homepage-blank] .text-white,
+[data-theme='light'] [data-homepage-blank] .text-white\/55,
+[data-theme='light'] [data-homepage-blank] .text-white\/58,
+[data-theme='light'] [data-homepage-blank] .text-white\/65,
+[data-theme='light'] [data-homepage-blank] .text-white\/68,
+[data-theme='light'] [data-homepage-blank] .text-white\/70,
+[data-theme='light'] [data-homepage-blank] .text-white\/72,
+[data-theme='light'] [data-homepage-blank] .text-white\/74,
+[data-theme='light'] [data-homepage-blank] .text-white\/78,
+[data-theme='light'] [data-homepage-blank] .text-white\/80 {
+  color: #0a0a0a !important;
+}
+
+[data-theme='light'] [data-homepage-blank] .border-white\/10,
+[data-theme='light'] [data-homepage-blank] .border-white\/15,
+[data-theme='light'] [data-homepage-blank] .border-white\/25 {
+  border-color: rgba(10, 10, 10, 0.16) !important;
+}
+
+[data-theme='light'] [data-homepage-blank] .bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.58) !important;
+}
+
+/* ─── Marquee keyframes ────────────────────────────────────────── */
+@keyframes mrq-ltr {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+@keyframes mrq-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(33.3333%);
+  }
+}
+
+/* ─── Cart "+1" bump ───────────────────────────────────────────── */
+@keyframes souqna-cart-bump {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-16px) scale(1);
+  }
+}
+
+:root,
+[data-theme='light'] {
+  --background: var(--surface-bg);
+  --foreground: var(--ink-strong);
+  --card: var(--surface-elevated);
+  --card-foreground: var(--ink-strong);
+  --popover: var(--surface-overlay);
+  --popover-foreground: var(--ink-strong);
+  --primary: var(--ink-strong);
+  --primary-foreground: var(--surface-bg);
+  --secondary: color-mix(in srgb, var(--ink-strong) 8%, transparent);
+  --secondary-foreground: var(--ink-strong);
+  --muted: color-mix(in srgb, var(--ink-strong) 6%, transparent);
+  --muted-foreground: var(--ink-muted);
+  --destructive: var(--color-maroon);
+  --destructive-foreground: var(--ink-on-accent);
+  --border: var(--surface-rule);
+  --input: var(--surface-rule);
+  --ring: var(--color-gold);
+  --radius: 0.5rem;
+  --sidebar: var(--surface-bg);
+  --sidebar-foreground: var(--ink-strong);
+  --sidebar-primary: var(--ink-strong);
+  --sidebar-primary-foreground: var(--surface-bg);
+  --sidebar-accent: color-mix(in srgb, var(--color-gold-deep) 14%, transparent);
+  --sidebar-accent-foreground: var(--ink-strong);
+  --sidebar-border: var(--surface-rule);
+  --sidebar-ring: var(--color-gold);
+}
+
+[data-theme='dark'] {
+  --background: var(--surface-bg);
+  --foreground: var(--ink-strong);
+  --card: var(--surface-elevated);
+  --card-foreground: var(--ink-strong);
+  --popover: var(--surface-overlay);
+  --popover-foreground: var(--ink-strong);
+  --primary: var(--ink-strong);
+  --primary-foreground: var(--surface-bg);
+  --secondary: color-mix(in srgb, var(--ink-strong) 10%, transparent);
+  --secondary-foreground: var(--ink-strong);
+  --muted: color-mix(in srgb, var(--ink-strong) 7%, transparent);
+  --muted-foreground: var(--ink-muted);
+  --destructive: var(--color-maroon);
+  --destructive-foreground: var(--ink-on-accent);
+  --border: var(--surface-rule);
+  --input: var(--surface-rule);
+  --ring: var(--color-gold);
+  --sidebar: var(--surface-bg);
+  --sidebar-foreground: var(--ink-strong);
+  --sidebar-primary: var(--ink-strong);
+  --sidebar-primary-foreground: var(--surface-bg);
+  --sidebar-accent: color-mix(in srgb, var(--color-gold-deep) 18%, transparent);
+  --sidebar-accent-foreground: var(--ink-strong);
+  --sidebar-border: var(--surface-rule);
+  --sidebar-ring: var(--color-gold);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent-soft);
+  --color-accent-foreground: var(--ink-strong);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}

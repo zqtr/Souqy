@@ -1,0 +1,355 @@
+.scope {
+  display: contents;
+}
+
+.scope:global(.sqna-fx),
+.scope:global(.sqna-fx *) {
+  box-sizing: border-box;
+}
+
+.scope:global(.sqna-fx) {
+  --sqna-bg: var(--sf-ground, #ffffff);
+  --sqna-ink: var(--sf-ink, #171717);
+  --sqna-accent: var(--sf-accent, #8b3a3a);
+  --sqna-muted: color-mix(in srgb, var(--sqna-ink) 62%, transparent);
+  --sqna-line: color-mix(in srgb, var(--sqna-ink) 16%, transparent);
+  --sqna-soft: color-mix(in srgb, var(--sqna-ink) 6%, transparent);
+  width: 100%;
+  overflow: hidden;
+  background: var(--sqna-bg);
+  color: var(--sqna-ink);
+  padding: 32px 16px;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.scope:global(.sqna-fx a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.scope:global(.sqna-fx button) {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.scope:global(.sqna-fx button:disabled) {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.scope:global(.sqna-fx img),
+.scope:global(.sqna-fx canvas) {
+  display: block;
+  max-width: 100%;
+}
+
+.scope:global(.sqna-fx svg) {
+  display: block;
+  flex-shrink: 0;
+}
+
+.scope:global(.sqna-fx .grid) { display: grid; }
+.scope:global(.sqna-fx .flex) { display: flex; }
+.scope:global(.sqna-fx .inline-flex) { display: inline-flex; }
+.scope:global(.sqna-fx .inline-block) { display: inline-block; }
+.scope:global(.sqna-fx .block) { display: block; }
+.scope:global(.sqna-fx .hidden) { display: none; }
+.scope:global(.sqna-fx .relative) { position: relative; }
+.scope:global(.sqna-fx .absolute) { position: absolute; }
+.scope:global(.sqna-fx .inset-0) { inset: 0; }
+.scope:global(.sqna-fx .inset-x-0) { left: 0; right: 0; }
+.scope:global(.sqna-fx .bottom-0) { bottom: 0; }
+.scope:global(.sqna-fx .top-3) { top: 12px; }
+.scope:global(.sqna-fx .end-0) { inset-inline-end: 0; }
+.scope:global(.sqna-fx .end-3) { inset-inline-end: 12px; }
+.scope:global(.sqna-fx .start-0) { inset-inline-start: 0; }
+.scope:global(.sqna-fx .start-3) { inset-inline-start: 12px; }
+.scope:global(.sqna-fx .-bottom-2) { bottom: -8px; }
+.scope:global(.sqna-fx .-z-10) { z-index: -10; }
+.scope:global(.sqna-fx .z-0) { z-index: 0; }
+.scope:global(.sqna-fx .z-10) { z-index: 10; }
+.scope:global(.sqna-fx .z-50) { z-index: 50; }
+.scope:global(.sqna-fx .isolate) { isolation: isolate; }
+
+.scope:global(.sqna-fx .mx-auto) { margin-left: auto; margin-right: auto; }
+.scope:global(.sqna-fx .mt-0\.5) { margin-top: 2px; }
+.scope:global(.sqna-fx .mt-1) { margin-top: 4px; }
+.scope:global(.sqna-fx .mt-2) { margin-top: 8px; }
+.scope:global(.sqna-fx .mt-3) { margin-top: 12px; }
+.scope:global(.sqna-fx .mt-4) { margin-top: 16px; }
+.scope:global(.sqna-fx .mt-5) { margin-top: 20px; }
+.scope:global(.sqna-fx .mt-6) { margin-top: 24px; }
+.scope:global(.sqna-fx .mt-8) { margin-top: 32px; }
+.scope:global(.sqna-fx .mt-10) { margin-top: 40px; }
+.scope:global(.sqna-fx .mb-1) { margin-bottom: 4px; }
+.scope:global(.sqna-fx .mb-2) { margin-bottom: 8px; }
+.scope:global(.sqna-fx .mb-3) { margin-bottom: 12px; }
+.scope:global(.sqna-fx .mb-4) { margin-bottom: 16px; }
+.scope:global(.sqna-fx .mb-5) { margin-bottom: 20px; }
+.scope:global(.sqna-fx .mb-6) { margin-bottom: 24px; }
+.scope:global(.sqna-fx .mb-8) { margin-bottom: 32px; }
+.scope:global(.sqna-fx .mb-10) { margin-bottom: 40px; }
+.scope:global(.sqna-fx .-mx-4) { margin-left: -16px; margin-right: -16px; }
+
+.scope:global(.sqna-fx .p-1) { padding: 4px; }
+.scope:global(.sqna-fx .p-2) { padding: 8px; }
+.scope:global(.sqna-fx .p-3) { padding: 12px; }
+.scope:global(.sqna-fx .p-4) { padding: 16px; }
+.scope:global(.sqna-fx .p-5) { padding: 20px; }
+.scope:global(.sqna-fx .px-1) { padding-left: 4px; padding-right: 4px; }
+.scope:global(.sqna-fx .px-2) { padding-left: 8px; padding-right: 8px; }
+.scope:global(.sqna-fx .px-3) { padding-left: 12px; padding-right: 12px; }
+.scope:global(.sqna-fx .px-4) { padding-left: 16px; padding-right: 16px; }
+.scope:global(.sqna-fx .px-5) { padding-left: 20px; padding-right: 20px; }
+.scope:global(.sqna-fx .px-8) { padding-left: 32px; padding-right: 32px; }
+.scope:global(.sqna-fx .py-0\.5) { padding-top: 2px; padding-bottom: 2px; }
+.scope:global(.sqna-fx .py-1) { padding-top: 4px; padding-bottom: 4px; }
+.scope:global(.sqna-fx .py-1\.5) { padding-top: 6px; padding-bottom: 6px; }
+.scope:global(.sqna-fx .py-2) { padding-top: 8px; padding-bottom: 8px; }
+.scope:global(.sqna-fx .py-2\.5) { padding-top: 10px; padding-bottom: 10px; }
+.scope:global(.sqna-fx .py-3) { padding-top: 12px; padding-bottom: 12px; }
+.scope:global(.sqna-fx .py-3\.5) { padding-top: 14px; padding-bottom: 14px; }
+.scope:global(.sqna-fx .py-4) { padding-top: 16px; padding-bottom: 16px; }
+.scope:global(.sqna-fx .py-6) { padding-top: 24px; padding-bottom: 24px; }
+.scope:global(.sqna-fx .py-8) { padding-top: 32px; padding-bottom: 32px; }
+.scope:global(.sqna-fx .py-10) { padding-top: 40px; padding-bottom: 40px; }
+.scope:global(.sqna-fx .pb-2) { padding-bottom: 8px; }
+.scope:global(.sqna-fx .pb-5) { padding-bottom: 20px; }
+.scope:global(.sqna-fx .pt-3) { padding-top: 12px; }
+.scope:global(.sqna-fx .pt-6) { padding-top: 24px; }
+
+.scope:global(.sqna-fx .w-full) { width: 100%; }
+.scope:global(.sqna-fx .h-full) { height: 100%; }
+.scope:global(.sqna-fx .w-fit) { width: fit-content; }
+.scope:global(.sqna-fx .w-max) { width: max-content; }
+.scope:global(.sqna-fx .w-3) { width: 12px; }
+.scope:global(.sqna-fx .h-3) { height: 12px; }
+.scope:global(.sqna-fx .w-4) { width: 16px; }
+.scope:global(.sqna-fx .h-4) { height: 16px; }
+.scope:global(.sqna-fx .w-9) { width: 36px; }
+.scope:global(.sqna-fx .h-9) { height: 36px; }
+.scope:global(.sqna-fx .w-10) { width: 40px; }
+.scope:global(.sqna-fx .w-11) { width: 44px; }
+.scope:global(.sqna-fx .h-12) { height: 48px; }
+.scope:global(.sqna-fx .w-12) { width: 48px; }
+.scope:global(.sqna-fx .w-14) { width: 56px; }
+.scope:global(.sqna-fx .h-16) { height: 64px; }
+.scope:global(.sqna-fx .w-16) { width: 64px; }
+.scope:global(.sqna-fx .w-\[190px\]) { width: 190px; }
+.scope:global(.sqna-fx .w-\[220px\]) { width: 220px; }
+.scope:global(.sqna-fx .h-\[240px\]) { height: 240px; }
+.scope:global(.sqna-fx .h-\[290px\]) { height: 290px; }
+.scope:global(.sqna-fx .h-\[300px\]) { height: 300px; }
+.scope:global(.sqna-fx .h-\[320px\]) { height: 320px; }
+.scope:global(.sqna-fx .h-\[340px\]) { height: 340px; }
+.scope:global(.sqna-fx .min-h-\[320px\]) { min-height: 320px; }
+.scope:global(.sqna-fx .min-w-0) { min-width: 0; }
+.scope:global(.sqna-fx .min-w-11) { min-width: 44px; }
+.scope:global(.sqna-fx .max-w-md) { max-width: 28rem; }
+.scope:global(.sqna-fx .max-w-lg) { max-width: 32rem; }
+.scope:global(.sqna-fx .max-w-xl) { max-width: 36rem; }
+.scope:global(.sqna-fx .max-w-2xl) { max-width: 42rem; }
+.scope:global(.sqna-fx .max-w-3xl) { max-width: 48rem; }
+.scope:global(.sqna-fx .max-w-4xl) { max-width: 56rem; }
+.scope:global(.sqna-fx .max-w-6xl) { max-width: 72rem; }
+
+.scope:global(.sqna-fx .aspect-square) { aspect-ratio: 1 / 1; }
+.scope:global(.sqna-fx .aspect-\[3\/4\]) { aspect-ratio: 3 / 4; }
+.scope:global(.sqna-fx .aspect-\[4\/3\]) { aspect-ratio: 4 / 3; }
+.scope:global(.sqna-fx .aspect-\[4\/5\]) { aspect-ratio: 4 / 5; }
+
+.scope:global(.sqna-fx .grid-cols-1) { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.scope:global(.sqna-fx .grid-cols-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.scope:global(.sqna-fx .grid-cols-\[88px_minmax\(0\,1fr\)\]) { grid-template-columns: 88px minmax(0, 1fr); }
+.scope:global(.sqna-fx .flex-col) { flex-direction: column; }
+.scope:global(.sqna-fx .flex-wrap) { flex-wrap: wrap; }
+.scope:global(.sqna-fx .items-start) { align-items: flex-start; }
+.scope:global(.sqna-fx .items-center) { align-items: center; }
+.scope:global(.sqna-fx .items-end) { align-items: flex-end; }
+.scope:global(.sqna-fx .items-baseline) { align-items: baseline; }
+.scope:global(.sqna-fx .justify-center) { justify-content: center; }
+.scope:global(.sqna-fx .justify-between) { justify-content: space-between; }
+.scope:global(.sqna-fx .place-items-center) { place-items: center; }
+.scope:global(.sqna-fx .self-center) { align-self: center; }
+.scope:global(.sqna-fx .flex-1) { flex: 1 1 0%; }
+.scope:global(.sqna-fx .shrink-0) { flex-shrink: 0; }
+.scope:global(.sqna-fx .gap-0\.5) { gap: 2px; }
+.scope:global(.sqna-fx .gap-1) { gap: 4px; }
+.scope:global(.sqna-fx .gap-1\.5) { gap: 6px; }
+.scope:global(.sqna-fx .gap-2) { gap: 8px; }
+.scope:global(.sqna-fx .gap-3) { gap: 12px; }
+.scope:global(.sqna-fx .gap-4) { gap: 16px; }
+.scope:global(.sqna-fx .gap-5) { gap: 20px; }
+.scope:global(.sqna-fx .gap-6) { gap: 24px; }
+
+.scope:global(.sqna-fx .overflow-hidden) { overflow: hidden; }
+.scope:global(.sqna-fx .overflow-x-auto) { overflow-x: auto; }
+.scope:global(.sqna-fx .overflow-visible) { overflow: visible; }
+.scope:global(.sqna-fx .object-cover) { object-fit: cover; }
+.scope:global(.sqna-fx .object-top) { object-position: top; }
+.scope:global(.sqna-fx .select-none) { user-select: none; }
+.scope:global(.sqna-fx .cursor-pointer) { cursor: pointer; }
+.scope:global(.sqna-fx .cursor-grab) { cursor: grab; }
+.scope:global(.sqna-fx .active\:cursor-grabbing:active) { cursor: grabbing; }
+.scope:global(.sqna-fx .pointer-events-none) { pointer-events: none; }
+.scope:global(.sqna-fx .pointer-events-auto) { pointer-events: auto; }
+
+.scope:global(.sqna-fx .rounded-lg) { border-radius: 8px; }
+.scope:global(.sqna-fx .rounded-xl) { border-radius: 12px; }
+.scope:global(.sqna-fx .rounded-2xl) { border-radius: 16px; }
+.scope:global(.sqna-fx .rounded-3xl) { border-radius: 24px; }
+.scope:global(.sqna-fx .rounded-full) { border-radius: 999px; }
+.scope:global(.sqna-fx .border) { border: 1px solid var(--sqna-line); }
+.scope:global(.sqna-fx .border-t) { border-top: 1px solid var(--sqna-line); }
+.scope:global(.sqna-fx .border-b) { border-bottom: 1px solid var(--sqna-line); }
+.scope:global(.sqna-fx .border-t-2) { border-top: 2px solid var(--sqna-line); }
+.scope:global(.sqna-fx .border-dashed) { border-style: dashed; }
+.scope:global(.sqna-fx .border-neutral-200),
+.scope:global(.sqna-fx .border-neutral-300),
+.scope:global(.sqna-fx .border-neutral-700),
+.scope:global(.sqna-fx .border-neutral-800) { border-color: var(--sqna-line); }
+.scope:global(.sqna-fx .border-neutral-950),
+.scope:global(.sqna-fx .border-white) { border-color: var(--sqna-ink); }
+.scope:global(.sqna-fx .border-black\/10) { border-color: rgba(0, 0, 0, 0.1); }
+
+.scope:global(.sqna-fx .bg-white) { background: var(--sqna-bg); }
+.scope:global(.sqna-fx .bg-black),
+.scope:global(.sqna-fx .bg-neutral-950),
+.scope:global(.sqna-fx .bg-neutral-900) { background: var(--sqna-ink); }
+.scope:global(.sqna-fx .bg-neutral-50),
+.scope:global(.sqna-fx .bg-neutral-100),
+.scope:global(.sqna-fx .bg-neutral-200),
+.scope:global(.sqna-fx .bg-neutral-800) { background: var(--sqna-soft); }
+.scope:global(.sqna-fx .bg-white\/90) { background: color-mix(in srgb, var(--sqna-bg) 90%, transparent); }
+.scope:global(.sqna-fx .bg-orange-500) { background: var(--sqna-accent); }
+.scope:global(.sqna-fx .bg-rose-200),
+.scope:global(.sqna-fx .bg-lime-200),
+.scope:global(.sqna-fx .bg-blue-200) { background: var(--sqna-soft); }
+.scope:global(.sqna-fx .bg-gradient-to-t) {
+  background: linear-gradient(to top, rgba(0, 0, 0, .72), rgba(0, 0, 0, .12), transparent);
+}
+
+.scope:global(.sqna-fx .text-start) { text-align: start; }
+.scope:global(.sqna-fx .text-center) { text-align: center; }
+.scope:global(.sqna-fx .text-xs) { font-size: 12px; line-height: 1.35; }
+.scope:global(.sqna-fx .text-sm) { font-size: 14px; line-height: 1.45; }
+.scope:global(.sqna-fx .text-base) { font-size: 16px; line-height: 1.5; }
+.scope:global(.sqna-fx .text-lg) { font-size: 18px; line-height: 1.4; }
+.scope:global(.sqna-fx .text-xl) { font-size: 20px; line-height: 1.25; }
+.scope:global(.sqna-fx .text-2xl) { font-size: 24px; line-height: 1.15; }
+.scope:global(.sqna-fx .text-3xl) { font-size: 30px; line-height: 1.1; }
+.scope:global(.sqna-fx .text-4xl) { font-size: 36px; line-height: 1.05; }
+.scope:global(.sqna-fx .text-\[10px\]) { font-size: 10px; line-height: 1.2; }
+.scope:global(.sqna-fx .text-\[11px\]) { font-size: 11px; line-height: 1.25; }
+.scope:global(.sqna-fx .font-medium) { font-weight: 500; }
+.scope:global(.sqna-fx .font-semibold) { font-weight: 600; }
+.scope:global(.sqna-fx .uppercase) { text-transform: uppercase; }
+.scope:global(.sqna-fx .capitalize) { text-transform: capitalize; }
+.scope:global(.sqna-fx .tracking-\[0\.14em\]) { letter-spacing: 0.14em; }
+.scope:global(.sqna-fx .tracking-\[0\.16em\]) { letter-spacing: 0.16em; }
+.scope:global(.sqna-fx .leading-5) { line-height: 1.25rem; }
+.scope:global(.sqna-fx .leading-6) { line-height: 1.5rem; }
+.scope:global(.sqna-fx .leading-tight) { line-height: 1.15; }
+.scope:global(.sqna-fx .text-neutral-950),
+.scope:global(.sqna-fx .text-neutral-900) { color: var(--sqna-ink); }
+.scope:global(.sqna-fx .text-neutral-700),
+.scope:global(.sqna-fx .text-neutral-600),
+.scope:global(.sqna-fx .text-neutral-500),
+.scope:global(.sqna-fx .text-neutral-400),
+.scope:global(.sqna-fx .text-neutral-300) { color: var(--sqna-muted); }
+.scope:global(.sqna-fx .text-white) { color: var(--sqna-bg); }
+.scope:global(.sqna-fx .text-white\/70) { color: rgba(255, 255, 255, .72); }
+.scope:global(.sqna-fx .text-white\/80) { color: rgba(255, 255, 255, .82); }
+.scope:global(.sqna-fx .text-blue-600),
+.scope:global(.sqna-fx .text-orange-500) { color: var(--sqna-accent); }
+
+.scope:global(.sqna-fx .truncate) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scope:global(.sqna-fx .line-clamp-2) {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.scope:global(.sqna-fx .opacity-0) { opacity: 0; }
+.scope:global(.sqna-fx .opacity-60) { opacity: .6; }
+.scope:global(.sqna-fx .opacity-\[0\.25\]) { opacity: .25; }
+.scope:global(.sqna-fx .transition),
+.scope:global(.sqna-fx .transition-colors) { transition: all 180ms ease; }
+.scope:global(.sqna-fx .duration-200) { transition-duration: 200ms; }
+.scope:global(.sqna-fx .duration-500) { transition-duration: 500ms; }
+.scope:global(.sqna-fx .shadow-md) { box-shadow: 0 10px 30px -22px var(--sqna-ink); }
+.scope:global(.sqna-fx .shadow-\[0_10px_40px_-12px_rgba\(0\,0\,0\,0\.2\)\]) {
+  box-shadow: 0 10px 40px -12px rgba(0, 0, 0, 0.2);
+}
+.scope:global(.sqna-fx .backdrop-blur-sm) { backdrop-filter: blur(4px); }
+.scope:global(.sqna-fx .will-change-transform) { will-change: transform; }
+.scope:global(.sqna-fx .translate-x-1\/2) { transform: translateX(50%); }
+.scope:global(.sqna-fx .-translate-x-1\/2) { transform: translateX(-50%); }
+.scope:global(.sqna-fx .rotate-180) { transform: rotate(180deg); }
+.scope:global(.sqna-fx .fill-current) { fill: currentColor; }
+
+.scope:global(.sqna-fx .hover\:bg-neutral-950:hover),
+.scope:global(.sqna-fx .hover\:bg-neutral-800:hover) { background: var(--sqna-ink); }
+.scope:global(.sqna-fx .hover\:text-white:hover) { color: var(--sqna-bg); }
+.scope:global(.sqna-fx .hover\:text-neutral-900:hover) { color: var(--sqna-ink); }
+.scope:global(.sqna-fx .hover\:border-neutral-400:hover) { border-color: color-mix(in srgb, var(--sqna-ink) 35%, transparent); }
+.scope:global(.sqna-fx .group:hover .group-hover\:scale-105) { transform: scale(1.05); }
+
+@media (min-width: 640px) {
+  .scope:global(.sqna-fx) { padding: 40px 24px; }
+  .scope:global(.sqna-fx .sm\:px-6) { padding-left: 24px; padding-right: 24px; }
+  .scope:global(.sqna-fx .sm\:py-10) { padding-top: 40px; padding-bottom: 40px; }
+  .scope:global(.sqna-fx .sm\:py-16) { padding-top: 64px; padding-bottom: 64px; }
+  .scope:global(.sqna-fx .sm\:mt-10) { margin-top: 40px; }
+  .scope:global(.sqna-fx .sm\:-mx-6) { margin-left: -24px; margin-right: -24px; }
+  .scope:global(.sqna-fx .sm\:w-\[230px\]) { width: 230px; }
+  .scope:global(.sqna-fx .sm\:w-\[260px\]) { width: 260px; }
+  .scope:global(.sqna-fx .sm\:h-\[320px\]) { height: 320px; }
+  .scope:global(.sqna-fx .sm\:w-14) { width: 56px; }
+  .scope:global(.sqna-fx .sm\:text-lg) { font-size: 18px; }
+  .scope:global(.sqna-fx .sm\:text-2xl) { font-size: 24px; }
+  .scope:global(.sqna-fx .sm\:text-3xl) { font-size: 30px; }
+  .scope:global(.sqna-fx .sm\:text-4xl) { font-size: 36px; }
+  .scope:global(.sqna-fx .sm\:text-5xl) { font-size: 48px; }
+  .scope:global(.sqna-fx .sm\:grid-cols-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .scope:global(.sqna-fx [class*="sm:grid-cols-[72px"]) { grid-template-columns: 72px minmax(0, 1fr); }
+  .scope:global(.sqna-fx .sm\:flex-row) { flex-direction: row; }
+  .scope:global(.sqna-fx .sm\:flex-col) { flex-direction: column; }
+  .scope:global(.sqna-fx .sm\:items-center) { align-items: center; }
+  .scope:global(.sqna-fx .sm\:items-end) { align-items: flex-end; }
+  .scope:global(.sqna-fx .sm\:justify-between) { justify-content: space-between; }
+  .scope:global(.sqna-fx .sm\:order-1) { order: 1; }
+  .scope:global(.sqna-fx .sm\:order-2) { order: 2; }
+  .scope:global(.sqna-fx .sm\:overflow-visible) { overflow: visible; }
+  .scope:global(.sqna-fx .sm\:ml-auto) { margin-inline-start: auto; }
+  .scope:global(.sqna-fx .sm\:rounded-2xl) { border-radius: 16px; }
+}
+
+@media (min-width: 768px) {
+  .scope:global(.sqna-fx .md\:text-4xl) { font-size: 36px; }
+  .scope:global(.sqna-fx .md\:text-5xl) { font-size: 48px; }
+  .scope:global(.sqna-fx .md\:text-6xl) { font-size: 60px; }
+}
+
+@media (min-width: 1024px) {
+  .scope:global(.sqna-fx .lg\:px-8) { padding-left: 32px; padding-right: 32px; }
+  .scope:global(.sqna-fx .lg\:-mx-8) { margin-left: -32px; margin-right: -32px; }
+  .scope:global(.sqna-fx .lg\:grid-cols-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .scope:global(.sqna-fx .lg\:grid-cols-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .scope:global(.sqna-fx .lg\:grid-cols-4) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .scope:global(.sqna-fx [class*="lg:grid-cols-[220px"]) { grid-template-columns: 220px minmax(0, 1fr); }
+  .scope:global(.sqna-fx [class*="lg:grid-cols-[minmax"]) { grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr); }
+  .scope:global(.sqna-fx [class*="lg:grid-cols-[0.9fr_1.1fr"]) { grid-template-columns: 0.9fr 1.1fr; }
+  .scope:global(.sqna-fx [class*="lg:grid-cols-[1.1fr_0.9fr"]) { grid-template-columns: 1.1fr 0.9fr; }
+  .scope:global(.sqna-fx .lg\:items-end) { align-items: flex-end; }
+}

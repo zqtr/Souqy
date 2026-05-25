@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Souqna — Brand Book</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Noto+Kufi+Arabic:wght@300;400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  html, body { margin:0; padding:0; background:#EEE6D3; font-family:"Inter Tight", sans-serif; color:#1F1B16; }
+  .page { max-width: 1280px; margin: 0 auto; padding: 64px 32px 120px; }
+  .head { display:flex; justify-content:space-between; align-items:flex-end; padding-bottom:28px; border-bottom:1px solid rgba(31,27,22,0.18); margin-bottom:48px; }
+  .head h1 { font-family:"Inter Tight"; font-weight:400; font-size:48px; letter-spacing:-0.03em; margin:0; }
+  .head .meta { font-family:"JetBrains Mono"; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(31,27,22,0.55); text-align:right; line-height:1.8; }
+  .section { margin-top: 88px; }
+  .section-label { font-family:"JetBrains Mono"; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#8B3A3A; margin-bottom:14px; display:flex; align-items:center; gap:12px; }
+  .section-label:before { content:""; width:22px; height:1px; background:#8B3A3A; }
+  .section h2 { font-family:"Inter Tight"; font-weight:400; font-size:40px; letter-spacing:-0.03em; margin:0 0 8px; line-height:1.05; }
+  .section p.lede { font-family:"Inter Tight"; font-size:15px; color:rgba(31,27,22,0.6); margin:0 0 36px; max-width:640px; }
+  .grid { display:grid; gap:24px; }
+  .cell { background:#F1E9D7; box-shadow: 0 2px 0 rgba(31,27,22,0.04); overflow:hidden; }
+  .cap { font-family:"JetBrains Mono"; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(31,27,22,0.55); margin-top:10px; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Inline the brand primitives so this file is self-sufficient (doesn't need prototype.jsx) -->
+<script type="text/babel">
+const P = {
+  beige: '#E8DCC4', beigeDeep:'#DCCEB1', beigePale:'#F1E9D7',
+  maroon:'#8B3A3A', maroonDeep:'#6A2A2A',
+  gold:'#C9A961', goldDeep:'#A8893F',
+  silver:'#C5C5C5', silverPale:'#D8D8D8',
+  charcoal:'#2A2A2A', charcoalSoft:'#3A3633',
+  ink:'#1F1B16',
+};
+function ArchMark({ size = 32, stroke = P.gold, inner = true }) {
+  const s = size, sw = Math.max(1, s/32);
+  return (
+    <svg width={s} height={s} viewBox="0 0 64 64" fill="none" style={{display:'block'}}>
+      <path d="M 8 56 L 8 32 A 24 24 0 0 1 56 32 L 56 56" stroke={stroke} strokeWidth={sw*1.4} fill="none" strokeLinecap="square"/>
+      {inner && <path d="M 18 56 L 18 34 A 14 14 0 0 1 46 34 L 46 56" stroke={stroke} strokeWidth={sw} fill="none" strokeLinecap="square" opacity="0.55"/>}
+      <circle cx="32" cy="8.5" r={sw*0.9} fill={stroke}/>
+    </svg>
+  );
+}
+function Wordmark({ size = 28, color = P.ink, divider = P.gold, showMark = true }) {
+  return (
+    <div style={{display:'flex',alignItems:'center',gap: size*0.55}}>
+      {showMark && <ArchMark size={size*1.15} stroke={divider}/>}
+      <div style={{display:'flex',alignItems:'center',gap: size*0.55}}>
+        <span style={{fontFamily:'"Inter Tight"',fontWeight:500,fontSize:size,letterSpacing:'-0.025em',color,lineHeight:1}}>Souqna</span>
+        <span style={{width:1,height:size*0.95,background:divider,opacity:0.55}}/>
+        <span dir="rtl" style={{fontFamily:'"Noto Kufi Arabic"',fontWeight:500,fontSize:size*0.95,color,lineHeight:1}}>سوقنا</span>
+      </div>
+    </div>
+  );
+}
+window.SouqnaBrand = { P, ArchMark, Wordmark };
+</script>
+
+<script type="text/babel" src="brand-artboards.jsx"></script>
+
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { P, ArchMark, Wordmark } = window.SouqnaBrand;
+const A = window.SouqnaArtboards;
+
+function Section({ label, title, lede, children }) {
+  return (
+    <section className="section">
+      <div className="section-label">{label}</div>
+      <h2>{title}</h2>
+      {lede && <p className="lede">{lede}</p>}
+      {children}
+    </section>
+  );
+}
+
+function Frame({ children, cap }) {
+  return (
+    <div>
+      <div className="cell">{children}</div>
+      {cap && <div className="cap">{cap}</div>}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div className="page">
+      {/* cover */}
+      <header className="head">
+        <div>
+          <Wordmark size={22} color={P.ink} divider={P.gold}/>
+          <h1 style={{marginTop:32}}>Brand identity · spring 2026</h1>
+          <div dir="rtl" style={{fontFamily:'"Noto Kufi Arabic"',fontSize:18,color:'rgba(31,27,22,0.6)',marginTop:6}}>
+            الهوية البصرية — ربيع ٢٠٢٦
+          </div>
+        </div>
+        <div className="meta">
+          <div>BUILT IN DOHA, FOR DOHA</div>
+          <div>EST. 2026</div>
+          <div>QATAR NATIONAL VISION 2030 · ALIGNED</div>
+        </div>
+      </header>
+
+      {/* Primary logo · 3 substrates */}
+      <Section label="01 · Primary logo" title="The wordmark, on three substrates."
+        lede="Bilingual by construction: Souqna and سوقنا hold equal weight, joined by a thin gold rule. Use the version with the highest contrast for the background.">
+        <div className="grid" style={{gridTemplateColumns:'repeat(3, 1fr)'}}>
+          <Frame cap="ON SAND · #E8DCC4">
+            <A.LogoArtboard bg={P.beige} gold={P.gold} ink={P.ink} label="SAND / رمل" w="100%" h={340}/>
+          </Frame>
+          <Frame cap="ON MAROON · #8B3A3A">
+            <A.LogoArtboard bg={P.maroon} gold="#D8D8D8" ink="#F1E9D7" label="MAROON / عنابي" w="100%" h={340}/>
+          </Frame>
+          <Frame cap="ON CHARCOAL · #2A2A2A">
+            <A.LogoArtboard bg={P.charcoal} gold={P.gold} ink="#F1E9D7" label="CHARCOAL / فحمي" w="100%" h={340}/>
+          </Frame>
+        </div>
+      </Section>
+
+      {/* The arch */}
+      <Section label="02 · The arch" title="Mark geometry, scale, and family."
+        lede="The arch is Souqna's gateway: the point at which an idea crosses into a real, working business. Built on a 25-pixel unit grid.">
+        <div className="grid" style={{gridTemplateColumns:'1fr 1fr',alignItems:'start'}}>
+          <Frame cap="GEOMETRY · 25PX UNIT"><A.MarkConstruction/></Frame>
+          <div className="grid" style={{gridTemplateColumns:'1fr',gap:24}}>
+            <Frame cap="WORDMARK · SCALE"><A.LogoScale/></Frame>
+            <Frame cap="MARK · FAMILY"><A.MarkFamily/></Frame>
+          </div>
+        </div>
+      </Section>
+
+      {/* Color */}
+      <Section label="03 · Color" title="A palette rooted in the majlis."
+        lede="Sand carries every surface. Maroon holds emotion and identity. Gold earns its place at the call-to-action. Silver is the quiet tech signal. Charcoal, never pure black, does the typography.">
+        <Frame cap="CORE PALETTE"><A.Palette/></Frame>
+      </Section>
+
+      {/* Typography */}
+      <Section label="04 · Typography" title="Arabic and English, held in equal dignity."
+        lede="Inter Tight leads the Latin script; Instrument Serif italic adds editorial emphasis. Noto Kufi Arabic leads the Arabic; Amiri italic carries the accents. JetBrains Mono handles meta and UI furniture.">
+        <Frame cap="BILINGUAL PAIRING"><A.Typography/></Frame>
+      </Section>
+
+      {/* Stationery & Business card */}
+      <Section label="05 · Applied" title="Stationery and the business card."
+        lede="Silver foil on light maroon for the card; a calm letterhead on sand; a compliments slip on charcoal. Every piece carries the arch — quietly.">
+        <div className="grid" style={{gridTemplateColumns:'1fr',gap:32}}>
+          <Frame cap="BUSINESS CARD · 85×55mm · SILVER FOIL ON MAROON"><A.BusinessCard/></Frame>
+          <Frame cap="STATIONERY · LETTERHEAD + COMPLIMENTS + INVOICE BAND"><A.Stationery/></Frame>
+        </div>
+      </Section>
+
+      {/* OG / Social */}
+      <Section label="06 · Digital" title="Open-graph card."
+        lede="The default social share. 1200×630. Type does the work; the arch watermarks the right margin.">
+        <Frame cap="OPEN GRAPH · 1200×630"><A.SocialCard/></Frame>
+      </Section>
+
+      <footer style={{marginTop:120,paddingTop:24,borderTop:`1px solid rgba(31,27,22,0.18)`,
+        display:'flex',justifyContent:'space-between',
+        fontFamily:'"JetBrains Mono"',fontSize:10,letterSpacing:'0.08em',color:'rgba(31,27,22,0.55)',textTransform:'uppercase'}}>
+        <span>© 2026 Souqna Atelier · الدوحة</span>
+        <span>Qatar National Vision 2030 · aligned</span>
+        <span>Brand book v1.0</span>
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>

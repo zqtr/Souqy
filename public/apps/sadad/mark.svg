@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" role="img" aria-label="SADAD">
+  <defs>
+    <linearGradient id="sadad-s" x1="20" y1="16" x2="112" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffd222"/>
+      <stop offset=".45" stop-color="#b65d36"/>
+      <stop offset="1" stop-color="#8d1148"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="120" rx="18" fill="#ffffff"/>
+  <path d="M98 21C70 13 38 18 23 36c-9 11-9 24 1 33 9 8 25 12 44 14 11 1 17 3 18 7 1 5-8 9-22 9-19 0-37-5-52-13l-7 20c19 9 42 13 64 10 25-3 45-15 48-34 2-16-9-27-31-32-10-2-24-3-34-5-8-1-12-4-10-8 3-8 22-12 43-8 7 1 13 3 19 5l-6-23Z" fill="url(#sadad-s)"/>
+  <path d="M33 57 99 25l-10 23L52 64l37 17 10 23-66-32c-8-4-8-11 0-15Z" fill="#ffffff" opacity=".96"/>
+  <text x="128" y="52" fill="#951248" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">سداد</text>
+  <text x="124" y="96" fill="#951248" font-family="Georgia, 'Times New Roman', serif" font-size="48" font-weight="700" letter-spacing="-1">SADAD</text>
+</svg>

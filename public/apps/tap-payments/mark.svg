@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" role="img" aria-label="Tap Payments">
+  <rect width="300" height="120" rx="18" fill="#ffffff"/>
+  <g transform="translate(24 21)" fill="none" stroke="#2a2d36" stroke-width="7">
+    <circle cx="39" cy="39" r="35"/>
+    <circle cx="39" cy="39" r="22"/>
+  </g>
+  <text x="112" y="82" fill="#2a2d36" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="300" letter-spacing="-4">tap</text>
+  <circle cx="245" cy="35" r="5" fill="none" stroke="#2a2d36" stroke-width="1.4"/>
+  <text x="242" y="38" fill="#2a2d36" font-family="Arial, Helvetica, sans-serif" font-size="7" font-weight="700">R</text>
+</svg>

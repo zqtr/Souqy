@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Zapier hooks">
+  <defs>
+    <linearGradient id="z-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f1b16"/>
+      <stop offset="100%" stop-color="#3a2f24"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="96" height="96" rx="22" fill="url(#z-bg)"/>
+  <g transform="translate(48 48)">
+    <g stroke="#d8b766" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9">
+      <line x1="-22" y1="0" x2="22" y2="0"/>
+      <line x1="0" y1="-22" x2="0" y2="22"/>
+      <line x1="-15.5" y1="-15.5" x2="15.5" y2="15.5"/>
+      <line x1="-15.5" y1="15.5" x2="15.5" y2="-15.5"/>
+    </g>
+    <circle r="6" fill="#1f1b16" stroke="#a8893f" stroke-width="1.4"/>
+  </g>
+</svg>

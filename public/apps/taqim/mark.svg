@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Taqim">
+  <defs>
+    <linearGradient id="tq-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f1b16"/>
+      <stop offset="100%" stop-color="#3a2f24"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="96" height="96" rx="22" fill="url(#tq-bg)"/>
+  <g transform="translate(48 50)" stroke="#d8b766" stroke-width="2" fill="none">
+    <rect x="-26" y="-14" width="22" height="22" rx="3" fill="#a8893f" fill-opacity="0.55"/>
+    <rect x="-8" y="-20" width="22" height="22" rx="3" fill="#a8893f" fill-opacity="0.7"/>
+    <rect x="10" y="-8" width="22" height="22" rx="3" fill="#fdfbf6" fill-opacity="0.85"/>
+  </g>
+  <text x="48" y="86" text-anchor="middle" font-family="JetBrains Mono, monospace"
+        font-size="8" fill="#a8893f" letter-spacing="0.2em" font-weight="600">TAQIM</text>
+</svg>

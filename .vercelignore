@@ -1,0 +1,41 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# local Next/Vercel build output
+.next/
+out/
+build/
+dist/
+.vercel/
+
+# logs and caches
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tsbuildinfo
+
+# environment
+.env
+.env.local
+.env.*.local
+.env.dev.tmp
+
+# editor / OS / agent files
+.DS_Store
+.idea/
+.vscode/
+.cursor/
+Thumbs.db
+
+# local-only prototypes
+_source/
+
+# sibling app workspaces are not part of the Next.js web deployment
+/apps/
+
+# root-level design/source artifacts
+/*.png
+brand.html

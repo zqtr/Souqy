@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Mawid">
+  <defs>
+    <linearGradient id="mw-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f1b16"/>
+      <stop offset="100%" stop-color="#3a2f24"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="96" height="96" rx="22" fill="url(#mw-bg)"/>
+  <g transform="translate(48 48)" fill="none" stroke="#d8b766" stroke-width="2" stroke-linecap="round">
+    <circle r="22"/>
+    <path d="M 0 -22 L 0 -18"/>
+    <path d="M 22 0 L 18 0"/>
+    <path d="M 0 22 L 0 18"/>
+    <path d="M -22 0 L -18 0"/>
+    <path d="M 0 0 L 0 -14"/>
+    <path d="M 0 0 L 11 6"/>
+  </g>
+  <circle cx="48" cy="48" r="2.5" fill="#fdfbf6"/>
+  <text x="48" y="86" text-anchor="middle" font-family="JetBrains Mono, monospace"
+        font-size="8" fill="#a8893f" letter-spacing="0.2em" font-weight="600">MAWID</text>
+</svg>

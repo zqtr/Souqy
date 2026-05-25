@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title-launchpad-1">
+  <title id="title-launchpad-1">Sample launchpad product 1</title>
+  <desc>Stylized placeholder rendered in the launchpad template palette.</desc>
+  <rect width="600" height="600" fill="#F5DDC8"/>
+  <g opacity="0.08" stroke="#2D1A1A" stroke-width="1">
+      <line x1="60" y1="60" x2="60" y2="540"/><line x1="60" y1="60" x2="540" y2="60"/><line x1="120" y1="60" x2="120" y2="540"/><line x1="60" y1="120" x2="540" y2="120"/><line x1="180" y1="60" x2="180" y2="540"/><line x1="60" y1="180" x2="540" y2="180"/><line x1="240" y1="60" x2="240" y2="540"/><line x1="60" y1="240" x2="540" y2="240"/><line x1="300" y1="60" x2="300" y2="540"/><line x1="60" y1="300" x2="540" y2="300"/><line x1="360" y1="60" x2="360" y2="540"/><line x1="60" y1="360" x2="540" y2="360"/><line x1="420" y1="60" x2="420" y2="540"/><line x1="60" y1="420" x2="540" y2="420"/><line x1="480" y1="60" x2="480" y2="540"/><line x1="60" y1="480" x2="540" y2="480"/><line x1="540" y1="60" x2="540" y2="540"/><line x1="60" y1="540" x2="540" y2="540"/>
+    </g>
+    <rect x="120" y="100" width="360" height="400" rx="4" fill="#2D1A1A" opacity="0.92"/>
+    <rect x="150" y="130" width="300" height="340" rx="2" fill="#C26A52" opacity="0.20"/>
+    <g transform="translate(300 300)" fill="#C26A52">
+      <polygon points="-60,30 0,-50 60,30"/>
+      <circle cx="-30" cy="-10" r="10" opacity="0.95"/>
+    </g>
+    <rect x="150" y="430" width="300" height="40" fill="#2D1A1A" opacity="0.45"/>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#2D1A1A" opacity="0.55">
+    <text x="40" y="560" letter-spacing="2">SOUQNA · SAMPLE · 01</text>
+  </g>
+</svg>

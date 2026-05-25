@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="t">
+  <title id="t">Salon plate · arch study</title>
+  <rect width="800" height="1000" fill="#efe4d2"/>
+  <g fill="#8a2a35" opacity="0.92">
+    <path d="M180 940 V440 a220 220 0 0 1 440 0 V940 Z"/>
+  </g>
+  <g fill="#efe4d2">
+    <path d="M260 940 V480 a140 140 0 0 1 280 0 V940 Z"/>
+  </g>
+  <g fill="none" stroke="#8a2a35" stroke-width="1.2" opacity="0.55">
+    <line x1="80" y1="80" x2="80" y2="940"/>
+    <line x1="720" y1="80" x2="720" y2="940"/>
+    <line x1="80" y1="940" x2="720" y2="940"/>
+  </g>
+  <text x="400" y="920" text-anchor="middle" font-family="ui-serif, Georgia, serif" font-size="22" fill="#efe4d2" opacity="0.8" letter-spacing="0.3em">SALON</text>
+</svg>

@@ -1,0 +1,48 @@
+{
+  "title": "SouqnaSource",
+  "tabs": { "browse": "Browse", "imports": "Imports", "quotes": "Quotes", "settings": "Settings" },
+  "browse": {
+    "filters": {
+      "type": { "all": "All", "priced": "Priced", "contact": "Contact (WhatsApp)" },
+      "trustAtLeast": "Trust score ≥",
+      "area": "Area",
+      "verifiedOnly": "Verified only",
+      "hideDelisted": "Hide delisted"
+    },
+    "empty": "No suppliers in this slice. Loosen filters or check back — we re-index every 6 hours."
+  },
+  "card": {
+    "addToStore": "Add to my store",
+    "messageOnSouqna": "Message on Souqna",
+    "getQuote": "Get a quote on WhatsApp",
+    "viewOriginal": "View original",
+    "trust": "Trust",
+    "moq": "MOQ",
+    "alreadyImported": "✓ In your store"
+  },
+  "import": {
+    "headline": "Add to my store",
+    "fields": { "title": "Title", "description": "Description", "retail": "Retail price" },
+    "save": "Save as draft product",
+    "cancel": "Cancel",
+    "aiUnavailable": "AI copy unavailable — please review before publishing.",
+    "imported": "Imported. Review and publish in your catalog."
+  },
+  "quote": {
+    "headline": "Get a quote on WhatsApp",
+    "preview": "We'll open WhatsApp with this message:",
+    "edit": "Edit message",
+    "open": "Open WhatsApp",
+    "afterNote": "After you get a price, come back and click \"Import manually\" on the Quotes tab."
+  },
+  "imports": { "headline": "Imported products", "empty": "Products you import from SouqnaSource will live here." },
+  "quotes": { "headline": "Quote requests", "empty": "Track quote requests you send to suppliers here.", "importManually": "Import manually" },
+  "settings": {
+    "drift": "Drift threshold",
+    "markup": "Default markup overrides",
+    "area": "Area filter",
+    "unverified": "Include unverified suppliers",
+    "emailDigest": "Daily email digest"
+  },
+  "badge": { "via": "via SouqnaSource", "drift": "Drift {pct}%", "delisted": "Delisted" }
+}

@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Souqna Product Promo</title>
+  </head>
+  <body>
+    <div
+      id="souqna-product-promo"
+      data-composition-id="souqna-product-promo"
+      data-start="0"
+      data-duration="20"
+      data-width="1920"
+      data-height="1080"
+    >
+      <section class="scene scene-one" data-layout-allow-overflow>
+        <img class="bg-shot hero-shot" src="capture/screenshots/scroll-000.png" alt="" data-layout-ignore />
+        <div class="grain" data-layout-ignore></div>
+        <div class="nav-pill">
+          <strong>Souqna</strong>
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow">Made in Doha for GCC</p>
+          <h1>Not another pile of tools.</h1>
+          <p>One workspace for home businesses.</p>
+        </div>
+        <div class="logo-river river-a" data-layout-ignore>
+          <span>△</span>
+          <span>Meta</span>
+          <span>WA</span>
+          <span>IG</span>
+          <span>Pay</span>
+          <span>Sheets</span>
+          <span>Zapier</span>
+          <span>Mail</span>
+        </div>
+      </section>
+
+      <section class="scene scene-two" data-layout-allow-overflow>
+        <div class="cream-grid" data-layout-ignore></div>
+        <div class="scene-content split">
+          <div class="copy-block">
+            <p class="eyebrow dark">One calm place</p>
+            <h2>Open, write, take orders, answer customers.</h2>
+            <p class="arabic">مكان واحد هادئ للبيع بالعربية والإنجليزية.</p>
+          </div>
+          <div class="rows">
+            <div><b>01</b><strong>Open</strong><span>Storefront setup</span></div>
+            <div><b>02</b><strong>Write</strong><span>Product pages and policy copy</span></div>
+            <div><b>03</b><strong>Orders</strong><span>Customers and support notes</span></div>
+            <div><b>04</b><strong>Reply</strong><span>Arabic and English together</span></div>
+          </div>
+          <div class="tilted-shot">
+            <img src="capture/screenshots/scroll-014.png" alt="" data-layout-ignore />
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-three" data-layout-allow-overflow>
+        <div class="dark-paper" data-layout-ignore></div>
+        <img class="process-shot" src="capture/screenshots/scroll-028.png" alt="" data-layout-ignore />
+        <div class="scene-content process">
+          <p class="eyebrow">Four questions to a working system</p>
+          <h2>Storefront, back office, and AI assistant.</h2>
+          <div class="ledger">
+            <div><span>I</span><strong>Open</strong><em>Day 01</em></div>
+            <div><span>II</span><strong>Write</strong><em>Content</em></div>
+            <div><span>III</span><strong>Operate</strong><em>Back office</em></div>
+            <div><span>IV</span><strong>Improve</strong><em>Always</em></div>
+          </div>
+          <svg class="connectors" viewBox="0 0 900 260" aria-hidden="true" data-layout-ignore>
+            <path id="line-one" d="M65 60 C250 10 315 210 450 130 C605 36 705 70 835 42" />
+            <path id="line-two" d="M95 205 C280 250 360 48 495 92 C640 138 690 235 845 178" />
+          </svg>
+          <div class="surface-tags">
+            <span>Storefront</span>
+            <span>Back office</span>
+            <span>AI assistant</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene-four" data-layout-allow-overflow>
+        <div class="cream-grid" data-layout-ignore></div>
+        <img class="pricing-shot" src="capture/screenshots/scroll-084.png" alt="" data-layout-ignore />
+        <div class="final-dark">
+          <div class="wordmark">SOUQNA</div>
+          <div class="final-logo" aria-label="Souqna">Souqna</div>
+          <h2>Open your store today.</h2>
+          <p>No credit card to start. Bilingual from day one.</p>
+          <div class="cta">Start free for two weeks</div>
+        </div>
+      </section>
+
+      <div class="wipe cream-wipe" data-layout-ignore></div>
+      <div class="wipe dark-wipe" data-layout-ignore></div>
+      <audio
+        id="narration"
+        src="narration.wav"
+        data-start="0"
+        data-duration="19"
+        data-track-index="0"
+        data-volume="1"
+      ></audio>
+
+      <style>
+        html,
+        body {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          background: #0a0a0a;
+        }
+
+        #souqna-product-promo {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background: #0a0a0a;
+          color: #f7f7f3;
+          font-family: "Exo 2", "Arial", sans-serif;
+        }
+
+        .scene {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          opacity: 0;
+        }
+
+        .scene-one {
+          opacity: 1;
+          background: #0a0a0a;
+        }
+
+        .bg-shot {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 0.72;
+        }
+
+        .hero-shot {
+          filter: contrast(1.16) brightness(0.72);
+        }
+
+        .grain {
+          position: absolute;
+          inset: 0;
+          background-image:
+            radial-gradient(circle at 32% 42%, rgba(232, 220, 196, 0.14), transparent 28%),
+            radial-gradient(circle at 72% 22%, rgba(247, 247, 243, 0.10), transparent 24%);
+          mix-blend-mode: screen;
+        }
+
+        .nav-pill {
+          position: absolute;
+          top: 56px;
+          left: 648px;
+          width: 624px;
+          height: 70px;
+          border-radius: 36px;
+          background: rgba(231, 230, 224, 0.88);
+          border: 1px solid rgba(209, 199, 178, 0.88);
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 0 34px;
+          box-sizing: border-box;
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+        }
+
+        .nav-pill strong {
+          color: #1f1b16;
+          font-size: 30px;
+          font-weight: 700;
+          letter-spacing: 0;
+        }
+
+        .hero-copy {
+          position: absolute;
+          left: 84px;
+          top: 252px;
+          width: 930px;
+          padding: 42px 46px 48px;
+          box-sizing: border-box;
+          background: rgba(10, 10, 10, 0.82);
+          border: 1px solid rgba(232, 220, 196, 0.16);
+          border-radius: 8px;
+          backdrop-filter: blur(8px);
+        }
+
+        .eyebrow {
+          margin: 0 0 28px;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 18px;
+          letter-spacing: 0;
+          text-transform: uppercase;
+          color: #e8dcc4;
+        }
+
+        .eyebrow.dark {
+          color: #2a2a2a;
+        }
+
+        h1,
+        h2,
+        p {
+          margin: 0;
+        }
+
+        h1 {
+          max-width: 980px;
+          font-size: 120px;
+          line-height: 0.96;
+          font-weight: 300;
+          color: #f7f7f3;
+        }
+
+        .hero-copy p:last-child {
+          margin-top: 34px;
+          max-width: 700px;
+          font-size: 34px;
+          line-height: 1.32;
+          color: rgba(247, 247, 243, 0.76);
+        }
+
+        .logo-river {
+          position: absolute;
+          left: 0;
+          bottom: 70px;
+          width: 2300px;
+          display: flex;
+          gap: 18px;
+          padding-left: 0;
+        }
+
+        .logo-river span {
+          width: 114px;
+          height: 66px;
+          border-radius: 24px;
+          background: #353533;
+          border: 1px solid rgba(232, 220, 196, 0.24);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .logo-river span {
+          color: #e8dcc4;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 18px;
+          font-weight: 700;
+          text-align: center;
+        }
+
+        .cream-grid {
+          position: absolute;
+          inset: 0;
+          background-color: #e8dcc4;
+          background-image:
+            linear-gradient(rgba(42, 42, 42, 0.11) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(42, 42, 42, 0.11) 1px, transparent 1px);
+          background-size: 44px 44px;
+        }
+
+        .scene-content {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+        }
+
+        .split {
+          display: grid;
+          grid-template-columns: 650px 1fr;
+          gap: 54px;
+          padding: 116px 118px 98px;
+          color: #2a2a2a;
+        }
+
+        .copy-block {
+          align-self: center;
+        }
+
+        .copy-block h2,
+        .process h2,
+        .final-dark h2 {
+          font-size: 82px;
+          line-height: 1.02;
+          font-weight: 300;
+          max-width: 880px;
+        }
+
+        .arabic {
+          margin-top: 34px;
+          font-size: 36px;
+          line-height: 1.3;
+          color: rgba(42, 42, 42, 0.62);
+          font-family: Georgia, serif;
+        }
+
+        .rows {
+          align-self: end;
+          grid-column: 1 / 2;
+          display: flex;
+          flex-direction: column;
+          border-top: 1px solid rgba(42, 42, 42, 0.26);
+        }
+
+        .rows div {
+          min-height: 100px;
+          display: grid;
+          grid-template-columns: 72px 190px 1fr;
+          align-items: center;
+          border-bottom: 1px solid rgba(42, 42, 42, 0.24);
+          gap: 24px;
+        }
+
+        .rows b,
+        .rows span,
+        .ledger span,
+        .ledger em {
+          font-family: "JetBrains Mono", monospace;
+          font-size: 18px;
+          font-weight: 400;
+          font-style: normal;
+          color: rgba(42, 42, 42, 0.66);
+        }
+
+        .rows strong {
+          font-size: 38px;
+          font-weight: 400;
+        }
+
+        .tilted-shot {
+          grid-row: 1 / 3;
+          grid-column: 2 / 3;
+          align-self: center;
+          justify-self: center;
+          width: 860px;
+          height: 640px;
+          border-radius: 8px;
+          overflow: hidden;
+          border: 1px solid rgba(42, 42, 42, 0.22);
+          box-shadow: 0 50px 110px rgba(31, 27, 22, 0.22);
+        }
+
+        .tilted-shot img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center top;
+          display: block;
+        }
+
+        .dark-paper {
+          position: absolute;
+          inset: 0;
+          background: #2a2a2a;
+        }
+
+        .process-shot {
+          position: absolute;
+          inset: -60px 0 0 720px;
+          width: 1160px;
+          height: 760px;
+          object-fit: cover;
+          object-position: center top;
+          opacity: 0.16;
+          filter: grayscale(1) contrast(1.1);
+          border-left: 1px solid rgba(232, 220, 196, 0.18);
+        }
+
+        .process {
+          padding: 104px 116px;
+          color: #e8dcc4;
+        }
+
+        .process::before {
+          content: "";
+          position: absolute;
+          left: 84px;
+          top: 76px;
+          width: 1170px;
+          height: 760px;
+          border-radius: 8px;
+          background: rgba(42, 42, 42, 0.94);
+          border: 1px solid rgba(232, 220, 196, 0.12);
+        }
+
+        .process > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        .process h2 {
+          max-width: 1080px;
+          color: #e8dcc4;
+        }
+
+        .ledger {
+          width: 1080px;
+          margin-top: 70px;
+          border-top: 1px solid rgba(232, 220, 196, 0.28);
+        }
+
+        .ledger div {
+          display: grid;
+          grid-template-columns: 88px 1fr 190px;
+          align-items: center;
+          min-height: 96px;
+          border-bottom: 1px solid rgba(232, 220, 196, 0.22);
+        }
+
+        .ledger strong {
+          font-size: 40px;
+          font-weight: 500;
+          color: #f7f7f3;
+        }
+
+        .ledger span,
+        .ledger em {
+          color: rgba(232, 220, 196, 0.72);
+          text-transform: uppercase;
+        }
+
+        .connectors {
+          position: absolute;
+          right: 105px;
+          bottom: 170px;
+          width: 760px;
+          height: 230px;
+        }
+
+        .connectors path {
+          fill: none;
+          stroke: #d1c7b2;
+          stroke-width: 2;
+          stroke-linecap: round;
+          opacity: 0.72;
+          stroke-dasharray: 980;
+          stroke-dashoffset: 980;
+        }
+
+        .surface-tags {
+          position: absolute;
+          right: 126px;
+          bottom: 104px;
+          width: 720px;
+          display: flex;
+          justify-content: space-between;
+          gap: 22px;
+        }
+
+        .surface-tags span {
+          width: 212px;
+          height: 78px;
+          border: 1px solid rgba(232, 220, 196, 0.34);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #f7f7f3;
+          font-size: 24px;
+          background: rgba(10, 10, 10, 0.18);
+        }
+
+        .pricing-shot {
+          position: absolute;
+          left: 260px;
+          top: 138px;
+          width: 1400px;
+          height: 720px;
+          object-fit: cover;
+          object-position: center top;
+          border-radius: 8px;
+          border: 1px solid rgba(42, 42, 42, 0.18);
+          box-shadow: 0 60px 130px rgba(31, 27, 22, 0.22);
+        }
+
+        .final-dark {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: #2a2a2a;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 110px;
+          box-sizing: border-box;
+          color: #e8dcc4;
+        }
+
+        .wordmark {
+          position: absolute;
+          bottom: -34px;
+          left: 210px;
+          font-size: 210px;
+          line-height: 1;
+          font-weight: 900;
+          color: transparent;
+          -webkit-text-stroke: 1px rgba(232, 220, 196, 0.28);
+          opacity: 0.72;
+        }
+
+        .final-logo {
+          width: auto;
+          min-height: 74px;
+          margin-bottom: 62px;
+          color: #e8dcc4;
+          font-size: 48px;
+          font-weight: 800;
+          letter-spacing: 0;
+        }
+
+        .final-dark h2,
+        .final-dark p,
+        .final-dark .cta,
+        .final-logo {
+          position: relative;
+          z-index: 1;
+        }
+
+        .final-dark h2 {
+          max-width: 960px;
+          color: #f7f7f3;
+        }
+
+        .final-dark p {
+          margin-top: 24px;
+          font-size: 32px;
+          color: rgba(232, 220, 196, 0.76);
+        }
+
+        .cta {
+          margin-top: 48px;
+          width: 370px;
+          height: 70px;
+          border-radius: 36px;
+          background: #e8dcc4;
+          color: #0a0a0a;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          font-weight: 700;
+          box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24);
+        }
+
+        .wipe {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .cream-wipe {
+          background: #e8dcc4;
+        }
+
+        .dark-wipe {
+          background: #2a2a2a;
+        }
+      </style>
+
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo(".hero-shot", { scale: 1.0 }, { scale: 1.06, duration: 3.8, ease: "none" }, 0);
+        tl.fromTo(".nav-pill", { y: -48, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "expo.out" }, 0.18);
+        tl.fromTo(".hero-copy .eyebrow", { x: -36, opacity: 0 }, { x: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 0.36);
+        tl.fromTo(".hero-copy h1", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85, ease: "circ.out" }, 0.66);
+        tl.fromTo(".hero-copy p:last-child", { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.62, ease: "power2.out" }, 1.08);
+        tl.fromTo(".logo-river span", { y: 70, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, stagger: 0.055, ease: "back.out(1.4)" }, 1.24);
+        tl.to(".logo-river", { x: -320, duration: 3.8, ease: "none" }, 0);
+
+        tl.fromTo(".cream-wipe", { y: 1080, opacity: 1 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.inOut" }, 3.45);
+        tl.set(".scene-two", { opacity: 1 }, 3.78);
+        tl.set(".scene-one", { opacity: 0 }, 4.02);
+        tl.set(".cream-wipe", { opacity: 0 }, 4.02);
+        tl.fromTo(".scene-two .cream-grid", { opacity: 0.1 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 3.8);
+        tl.fromTo(".copy-block .eyebrow", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 4.08);
+        tl.fromTo(".copy-block h2", { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.72, ease: "expo.out" }, 4.28);
+        tl.fromTo(".arabic", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "sine.out" }, 4.76);
+        tl.fromTo(".rows div", { x: -52, opacity: 0 }, { x: 0, opacity: 1, duration: 0.46, stagger: 0.13, ease: "power2.out" }, 5.04);
+        tl.fromTo(".tilted-shot", { x: 120, y: 44, opacity: 0, rotation: 2, scale: 0.96 }, { x: 0, y: 0, opacity: 1, rotation: 0, scale: 1, duration: 0.9, ease: "circ.out" }, 5.26);
+        tl.to(".tilted-shot img", { scale: 1.035, duration: 4.2, ease: "none" }, 5.26);
+
+        tl.fromTo(".dark-wipe", { y: 1080, opacity: 1 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.inOut" }, 7.55);
+        tl.set(".scene-three", { opacity: 1 }, 7.92);
+        tl.set(".scene-two", { opacity: 0 }, 8.08);
+        tl.set(".dark-wipe", { opacity: 0 }, 8.08);
+        tl.fromTo(".process-shot", { opacity: 0, scale: 1.03 }, { opacity: 0.16, scale: 1.0, duration: 0.8, ease: "power1.out" }, 8.0);
+        tl.fromTo(".process .eyebrow", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power3.out" }, 8.2);
+        tl.fromTo(".process h2", { y: 72, opacity: 0 }, { y: 0, opacity: 1, duration: 0.78, ease: "expo.out" }, 8.42);
+        tl.fromTo(".ledger div", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.46, stagger: 0.18, ease: "power2.out" }, 9.02);
+        tl.to(".connectors path", { strokeDashoffset: 0, duration: 1.05, stagger: 0.18, ease: "power2.inOut" }, 10.0);
+        tl.fromTo(".surface-tags span", { y: 54, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.54, stagger: 0.12, ease: "back.out(1.3)" }, 10.42);
+        tl.to(".surface-tags span", { y: -8, duration: 1.2, stagger: 0.1, yoyo: true, repeat: 2, ease: "sine.inOut" }, 11.3);
+
+        tl.fromTo(".cream-wipe", { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power2.out" }, 13.0);
+        tl.set(".scene-four", { opacity: 1 }, 13.16);
+        tl.set(".scene-three", { opacity: 0 }, 13.28);
+        tl.to(".cream-wipe", { opacity: 0, duration: 0.35, ease: "power2.in" }, 13.36);
+        tl.fromTo(".pricing-shot", { y: 120, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.78, ease: "expo.out" }, 13.32);
+        tl.to(".pricing-shot", { scale: 1.025, duration: 2.1, ease: "none" }, 14.12);
+        tl.fromTo(".final-dark", { opacity: 0 }, { opacity: 1, duration: 0.72, ease: "power2.inOut" }, 15.6);
+        tl.fromTo(".wordmark", { y: 70, opacity: 0 }, { y: 0, opacity: 0.72, duration: 0.8, ease: "power2.out" }, 15.86);
+        tl.fromTo(".final-logo", { y: 28, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "circ.out" }, 16.18);
+        tl.fromTo(".final-dark h2", { y: 54, opacity: 0 }, { y: 0, opacity: 1, duration: 0.62, ease: "expo.out" }, 16.46);
+        tl.fromTo(".final-dark p", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.48, ease: "power2.out" }, 16.86);
+        tl.fromTo(".cta", { y: 42, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.58, ease: "back.out(1.5)" }, 17.28);
+        tl.to(".cta", { scale: 1.035, duration: 0.6, yoyo: true, repeat: 2, ease: "sine.inOut" }, 18.0);
+        tl.to(".final-dark", { opacity: 0, duration: 0.55, ease: "power2.in" }, 19.45);
+
+        window.__timelines["souqna-product-promo"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

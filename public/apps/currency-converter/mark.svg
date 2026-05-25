@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Souqna Currency Converter">
+  <defs>
+    <linearGradient id="cc-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f1e9d7"/>
+      <stop offset="100%" stop-color="#e1cfa2"/>
+    </linearGradient>
+    <linearGradient id="cc-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d8b766"/>
+      <stop offset="100%" stop-color="#a8893f"/>
+    </linearGradient>
+    <linearGradient id="cc-ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a2520"/>
+      <stop offset="100%" stop-color="#1f1b16"/>
+    </linearGradient>
+    <radialGradient id="cc-shine" cx="0.3" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#fff8e6" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#fff8e6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="96" height="96" rx="22" fill="url(#cc-bg)"/>
+  <g transform="translate(48 48)">
+    <g transform="translate(-12 -10) rotate(-12)">
+      <circle r="20" fill="url(#cc-gold)" stroke="#8b6f2c" stroke-width="1.2"/>
+      <circle r="20" fill="url(#cc-shine)"/>
+      <circle r="16" fill="none" stroke="#8b6f2c" stroke-opacity="0.4" stroke-width="0.8"/>
+      <text x="0" y="6" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+            font-size="18" font-weight="600" fill="#3a2c12" letter-spacing="-0.02em">$</text>
+    </g>
+    <g transform="translate(13 9) rotate(14)">
+      <circle r="20" fill="url(#cc-ink)" stroke="#5a4a32" stroke-width="1.2"/>
+      <circle r="20" fill="url(#cc-shine)" opacity="0.35"/>
+      <circle r="16" fill="none" stroke="#a8893f" stroke-opacity="0.45" stroke-width="0.8"/>
+      <text x="0" y="6" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+            font-size="16" font-weight="500" fill="#e8dcc4" letter-spacing="0">QAR</text>
+    </g>
+    <g stroke="#a8893f" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.95">
+      <path d="M -6 -22 a 22 22 0 0 1 22 -2"/>
+      <path d="M 14 -20 l 4 -4 l -2 6"/>
+      <path d="M 6 22 a 22 22 0 0 1 -22 2"/>
+      <path d="M -14 20 l -4 4 l 2 -6"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,28 @@
+{
+  "$schema": "./README.md",
+  "_comment": "Map of app id -> direct URL of the official brand mark. Fill in URLs from each vendor's brand kit, then run: node scripts/fetch-app-logos.mjs. Set value to null to skip an app and keep the existing Souqna-styled placeholder.",
+
+  "aramex": null,
+  "crisp": null,
+  "currency-converter": null,
+  "drop-manager": null,
+  "fawran": null,
+  "giphy": null,
+  "google-analytics": null,
+  "google-sheets": null,
+  "hubspot": null,
+  "instagram-shop": null,
+  "intercom": null,
+  "klaviyo": null,
+  "lookbook": null,
+  "mailchimp": null,
+  "meta-pixel": null,
+  "notion": null,
+  "postpay": null,
+  "seo-assistant": null,
+  "tabby": null,
+  "tap-payments": null,
+  "tiktok-pixel": null,
+  "whatsapp-business": null,
+  "zapier": null
+}

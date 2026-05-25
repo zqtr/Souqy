@@ -1,0 +1,8 @@
+{
+  "crons": [
+    { "path": "/api/apps/souqnasource/cron/index", "schedule": "0 */6 * * *" },
+    { "path": "/api/apps/souqnasource/cron/sync", "schedule": "0 3 * * *" },
+    { "path": "/api/apps/souqnasource/cron/trust-refresh", "schedule": "0 4 1 * *" },
+    { "path": "/api/notifications/weekly", "schedule": "0 6 * * 5" }
+  ]
+}

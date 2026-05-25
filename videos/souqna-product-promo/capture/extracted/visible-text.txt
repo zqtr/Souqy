@@ -1,0 +1,133 @@
+[a] Skip to content
+[a] Souqy Studio
+[summary] How it works
+[span] Onboarding
+[span] Open the first workspace.
+[span] Read the Souqna basics.
+[span] Support and quick answers.
+[span] Step-by-step setup notes.
+[span] Plans and pricing.
+[a] AI studio
+[div] Made In Doha For GCC
+[span] A workplace for
+[em] home businesses.
+[p] مكان عمل لمشاريع البيت.
+[p] Open a store, write the pages, take the orders, and talk to the customer in Arabic and English on one calm cream surface. Souqna sets up the storefront, the back of house, and the AI on the line. You stay yourself.
+[a] Start your store - free for two weeks
+[a] See it work · شاهد كيف يعمل
+[a] Open account
+[p] Onboarding · ابدأ من هنا
+[h2] Four small questions, then your workplace opens.
+[p] أربعة أسئلة قصيرة ثم يفتح مكان عملك.
+[h3] Name
+[p] Give the project a working name. Arabic, English, or both are welcome.
+[small] اسم المشروع
+[h3] Kind
+[p] Choose the kind of home business you are opening: kitchen, boutique, salon, oud, crafts, or something else.
+[small] نوع النشاط
+[h3] Language
+[p] Pick Arabic + English, Arabic only, or English only. The workplace keeps parity when you need both.
+[small] لغة البيع
+[h3] Stage
+[p] Tell Souqna where you are today: idea, taking orders, or running a small shop.
+[small] مرحلة المشروع
+[p] How Souqna works
+[h2] From a name to the first sale, without splitting your work across tools.
+[h3] Open
+[p] Souqna creates the workspace, starter storefront, catalogue structure, and bilingual content plan.
+[small] DAY 01
+[h3] Write
+[p] The AI studio drafts product pages, alt text, policy copy, and launch posts in your voice.
+[small] CONTENT
+[span] III
+[h3] Operate
+[p] Orders, customers, support notes, and storefront changes live together instead of scattering across tabs.
+[small] BACK OFFICE
+[h3] Improve
+[p] The workplace notices gaps, queues useful tasks, and helps you keep the business moving.
+[small] ALWAYS
+[p] AI studio
+[h2] The storefront, back office, and AI assistant stay on one surface.
+[p] Drop one image and one sentence. Souqna drafts product pages, alt text, bilingual captions, customer replies, and launch tasks in your voice.
+[p] We write our own code, copy, and contracts.
+[span] We accept GCC payments in
+[span] Bahraini
+[span] currency and work in your language.
+[p] We stay after launch: continuous support, not a hand-off.
+[p] How-to
+[h2] Quiet, but useful. The real numbers appear as founders open stores.
+[small] Founders onboarded
+[small] placeholder
+[small] Products written
+[small] placeholder
+[small] Average time to live
+[small] placeholder
+[p] Plans
+[h2] Start free. Upgrade when the store needs more room.
+[p] Every plan keeps bilingual storefronts, hosted pages, builder access, and Gulf-first commerce workflows.
+[h3] Free
+[p] Generate your first storefront and launch the basics.
+[span] Free
+[span] start
+[span] 1 storefront
+[span] 3 starter templates
+[span] Full visual builder
+[span] EN + AR storefront
+[span] Souqna subdomain
+[a] Start free
+[h3] Pro
+[p] Launch with more storefronts, a custom domain, and support.
+[span] QR 49
+[span] / mo
+[span] 3 storefronts
+[span] 6 commerce templates
+[span] Custom domain
+[span] Plugin library
+[span] Email + chat support
+[a] Choose Pro
+[span] Most chosen
+[h3] Pro +
+[p] Add Souqy, AI assets, product copy, and growth apps.
+[span] QR 145
+[span] / mo
+[span] 10 storefronts
+[span] AI branding assets
+[span] Souqy AI operator
+[span] Product copy in EN + AR
+[span] Marketing and analytics apps
+[a] Choose Pro +
+[h3] Max +
+[p] Scale operations with advanced AI, integrations, and seats.
+[span] QR 235
+[span] / mo
+[span] Unlimited storefronts
+[span] All premium blocks
+[span] Advanced pricing and SEO AI
+[span] Priority onboarding
+[span] 5 team seats
+[a] Choose Max +
+[p] Begin
+[h2] Open your store today.
+[p] No credit card to start. Bilingual from day one. Pause any time.
+[a] Start - free for two weeks
+[p] Souqna is a bilingual commerce workspace for GCC storefronts, payments, orders, and AI-assisted operations.
+[a] Start a store
+[a] Souqy Studio
+[a] Account dashboard
+[h4] Resources
+[p] © 2026 Souqna / Made in Doha for GCC commerce
+[a] Security
+[a] Terms of service
+[a] Privacy policy
+[p] Souqna is a bilingual commerce workspace designed in Doha for founders building Gulf storefronts.
+[p] سوقنا مساحة تجارة ثنائية اللغة مصممة في الدوحة للمؤسسين الذين يبنون متاجر خليجية.
+[div] Platform
+[a] Workspace
+[a] Operations
+[a] Souqy AI
+[a] support@souqna.qa
+[a] Instagram
+[a] Shipping
+[span] © 2026 SOUQNA · QATAR
+[span] BILINGUAL COMMERCE · DESIGNED IN DOHA
+[span] v1.0 · SPRING 2026

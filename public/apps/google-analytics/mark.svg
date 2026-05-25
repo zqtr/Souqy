@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Google Analytics 4">
+  <defs>
+    <linearGradient id="ga-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fdfbf6"/>
+      <stop offset="100%" stop-color="#eee5d4"/>
+    </linearGradient>
+    <linearGradient id="ga-bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8b766"/>
+      <stop offset="100%" stop-color="#a8893f"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="96" height="96" rx="22" fill="url(#ga-bg)"/>
+  <g transform="translate(20 18)">
+    <rect x="0" y="48" width="14" height="22" rx="3" fill="url(#ga-bar)" opacity="0.55"/>
+    <rect x="22" y="30" width="14" height="40" rx="3" fill="url(#ga-bar)" opacity="0.75"/>
+    <rect x="44" y="14" width="14" height="56" rx="3" fill="url(#ga-bar)"/>
+    <circle cx="51" cy="10" r="6" fill="#1f1b16"/>
+  </g>
+  <path d="M 22 80 L 76 80" stroke="#1f1b16" stroke-width="1.4" stroke-linecap="round" opacity="0.4"/>
+</svg>

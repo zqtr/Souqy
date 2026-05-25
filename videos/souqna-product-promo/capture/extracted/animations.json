@@ -1,0 +1,56 @@
+{
+  "summary": {
+    "webAnimations": 1,
+    "cssDeclarations": 104,
+    "scrollTargets": 94,
+    "cdpAnimations": 163,
+    "canvases": 2
+  },
+  "namedAnimations": [
+    "sq-currency-cycle"
+  ],
+  "scrollTriggeredElements": 94,
+  "representativeAnimations": [
+    {
+      "type": "CSSAnimation",
+      "playState": "finished",
+      "animationName": "sq-currency-cycle",
+      "targetSelector": "span.sq-currency-word",
+      "targetRect": {
+        "x": 937.25,
+        "y": 3487.5,
+        "width": 68.46875,
+        "height": 28.34375,
+        "top": 3487.5,
+        "right": 1005.71875,
+        "bottom": 3515.84375,
+        "left": 937.25
+      },
+      "keyframes": [
+        {
+          "offset": 0,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "composite": "auto",
+          "transform": "translateY(9.45px)",
+          "opacity": "0",
+          "computedOffset": 0
+        },
+        {
+          "offset": 1,
+          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+          "composite": "auto",
+          "transform": "translateY(0px)",
+          "opacity": "1",
+          "computedOffset": 1
+        }
+      ],
+      "timing": {
+        "duration": 0.001,
+        "delay": 0,
+        "iterations": 1,
+        "easing": "linear",
+        "direction": "normal"
+      }
+    }
+  ]
+}

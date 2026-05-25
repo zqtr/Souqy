@@ -1,0 +1,48 @@
+{
+  "title": "SouqnaSource",
+  "tabs": { "browse": "تصفح", "imports": "المستوردة", "quotes": "العروض", "settings": "الإعدادات" },
+  "browse": {
+    "filters": {
+      "type": { "all": "الكل", "priced": "بسعر", "contact": "تواصل (واتساب)" },
+      "trustAtLeast": "درجة الثقة ≥",
+      "area": "المنطقة",
+      "verifiedOnly": "الموثقين فقط",
+      "hideDelisted": "إخفاء المسحوبة"
+    },
+    "empty": "ما فيه موردين بهذي الفئة. خفّف الفلاتر أو ارجع لاحقاً — نحدّث كل ٦ ساعات."
+  },
+  "card": {
+    "addToStore": "أضف إلى متجري",
+    "messageOnSouqna": "تواصل عبر Souqna",
+    "getQuote": "اطلب عرض على واتساب",
+    "viewOriginal": "المصدر الأصلي",
+    "trust": "ثقة",
+    "moq": "أقل كمية",
+    "alreadyImported": "✓ في متجرك"
+  },
+  "import": {
+    "headline": "أضف إلى متجري",
+    "fields": { "title": "العنوان", "description": "الوصف", "retail": "سعر التجزئة" },
+    "save": "احفظ كمسودة",
+    "cancel": "إلغاء",
+    "aiUnavailable": "النص بالذكاء الاصطناعي مو متوفر — راجع قبل النشر.",
+    "imported": "تمت الإضافة. راجع وانشر من قائمة المنتجات."
+  },
+  "quote": {
+    "headline": "اطلب عرض على واتساب",
+    "preview": "بنفتح واتساب بهالرسالة:",
+    "edit": "تعديل الرسالة",
+    "open": "فتح واتساب",
+    "afterNote": "أول ما يجيك السعر، ارجع واضغط «استيراد يدوي» في تبويب العروض."
+  },
+  "imports": { "headline": "المنتجات المستوردة", "empty": "المنتجات اللي تستوردها من SouqnaSource تظهر هنا." },
+  "quotes": { "headline": "طلبات العروض", "empty": "تتبع طلبات العروض اللي ترسلها للموردين هنا.", "importManually": "استيراد يدوي" },
+  "settings": {
+    "drift": "حد تغير السعر",
+    "markup": "هامش افتراضي مخصص",
+    "area": "فلتر المنطقة",
+    "unverified": "أظهر الموردين غير الموثقين",
+    "emailDigest": "ملخص يومي بالبريد"
+  },
+  "badge": { "via": "عبر SouqnaSource", "drift": "تغير {pct}%", "delisted": "مسحوب" }
+}

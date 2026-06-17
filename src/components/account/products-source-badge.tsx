@@ -5,5 +5,6 @@ export function ProductsSourceBadge(_props: {
   drift?: number | null;
   delisted?: boolean;
 }) {
+  void _props;
   return null;
 }

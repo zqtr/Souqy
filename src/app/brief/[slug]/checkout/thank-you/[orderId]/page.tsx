@@ -5,6 +5,7 @@ import { getStorefrontCheckoutSettings, type CheckoutSettings } from '@/lib/stor
 import { palettes, paletteCssVars, type PaletteId } from '@/lib/palettes';
 import type { Theme } from '@/lib/theme';
 import { getServerTheme } from '@/components/theme/ServerThemeScript';
+import { checkoutThemeForBackground } from '@/lib/storefrontCheckoutTheme';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -47,13 +48,17 @@ export default async function ThankYouPage({ params, searchParams }: Props) {
   const behaviour = storefront.themeOverrides.themeBehaviour ?? 'auto';
   const effectiveTheme: Theme =
     behaviour === 'light' ? 'light' : behaviour === 'dark' ? 'dark' : visitorTheme;
+  const checkoutTheme = checkoutThemeForBackground(
+    storefront.themeOverrides.pageBg,
+    effectiveTheme,
+  );
 
   const wrapperStyle: React.CSSProperties = {
-    ...paletteCssVars(palette, effectiveTheme),
+    ...paletteCssVars(palette, checkoutTheme),
     background: storefront.themeOverrides.pageBg ?? 'var(--sf-ground)',
     color: 'var(--sf-ink)',
     minHeight: '100dvh',
-    colorScheme: effectiveTheme,
+    colorScheme: checkoutTheme,
   };
 
   const shortRef = shortenOrderId(order.id);

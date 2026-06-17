@@ -134,7 +134,7 @@ export function Showcase2({
       <SouqnaFxStyles />
       <div className="mx-auto w-full max-w-6xl">
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          initial={false}
           whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}

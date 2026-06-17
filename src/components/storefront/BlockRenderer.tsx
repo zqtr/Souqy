@@ -1,6 +1,7 @@
 import type { Block, BlockStyle } from '@/lib/blocks/types';
 import type { BlockContext } from './blocks/BlockContext';
 import { palettes, paletteCssVars, type PaletteId } from '@/lib/palettes';
+import { storefrontThemeForBackground } from '@/lib/storefrontCheckoutTheme';
 import { HeroBlock } from './blocks/HeroBlock';
 import { BannerBlock } from './blocks/BannerBlock';
 import { TextBlock } from './blocks/TextBlock';
@@ -208,9 +209,12 @@ function BlockFrame({
   if (style.colorScheme === 'light' || style.colorScheme === 'dark') {
     const paletteId = (ctx.theme.palette ?? ctx.storefront.palette) as PaletteId;
     const palette = palettes[paletteId] ?? palettes.sand_gold;
-    Object.assign(css, paletteCssVars(palette, style.colorScheme));
-    css.colorScheme = style.colorScheme;
-    if (!style.bg) css.background = 'var(--sf-ground)';
+    const blockBackground =
+      style.backgroundCss ?? (style.bg ? BG_KEYWORDS[style.bg] ?? style.bg : undefined);
+    const blockTheme = storefrontThemeForBackground(blockBackground, style.colorScheme);
+    Object.assign(css, paletteCssVars(palette, blockTheme));
+    css.colorScheme = blockTheme;
+    if (!style.bg && !style.backgroundCss) css.background = 'var(--sf-ground)';
     if (!style.textColor) css.color = 'var(--sf-ink)';
   }
 

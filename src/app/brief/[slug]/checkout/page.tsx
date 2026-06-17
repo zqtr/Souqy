@@ -11,6 +11,7 @@ import { CheckoutFlow } from '@/components/storefront/checkout/CheckoutFlow';
 import { CartProvider } from '@/components/storefront/cart/CartContext';
 import { storefrontBaseUrl } from '@/lib/storefrontUrl';
 import { getPlan, platformFeeBpsForPlan } from '@/lib/billing';
+import { checkoutThemeForBackground } from '@/lib/storefrontCheckoutTheme';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -55,13 +56,17 @@ export default async function CheckoutPage({ params }: Props) {
   const behaviour = storefront.themeOverrides.themeBehaviour ?? 'auto';
   const effectiveTheme: Theme =
     behaviour === 'light' ? 'light' : behaviour === 'dark' ? 'dark' : visitorTheme;
+  const checkoutTheme = checkoutThemeForBackground(
+    storefront.themeOverrides.pageBg,
+    effectiveTheme,
+  );
 
   const wrapperStyle: React.CSSProperties = {
-    ...paletteCssVars(palette, effectiveTheme),
+    ...paletteCssVars(palette, checkoutTheme),
     background: storefront.themeOverrides.pageBg ?? 'var(--sf-ground)',
     color: 'var(--sf-ink)',
     minHeight: '100dvh',
-    colorScheme: effectiveTheme,
+    colorScheme: checkoutTheme,
   };
 
   const dir = storefront.locale === 'ar' ? 'rtl' : 'ltr';

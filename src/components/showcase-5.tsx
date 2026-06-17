@@ -89,7 +89,7 @@ export default function Showcase5({
       <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
         {eyebrow ? (
           <motion.span
-            initial={shouldReduceMotion ? false : { opacity: 0 }}
+            initial={false}
             whileInView={shouldReduceMotion ? undefined : { opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
@@ -100,7 +100,7 @@ export default function Showcase5({
         ) : null}
         {title ? (
           <motion.h2
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+            initial={false}
             whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -111,7 +111,7 @@ export default function Showcase5({
         ) : null}
         {description ? (
           <motion.p
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+            initial={false}
             whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}

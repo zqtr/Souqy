@@ -308,7 +308,7 @@ export function Showcase3({
         <div className="mb-5 text-center">
           {title ? (
             <motion.h2
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              initial={false}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
               className="mb-3 text-2xl font-semibold text-neutral-900 dark:text-white sm:text-3xl md:text-4xl"
@@ -318,7 +318,7 @@ export function Showcase3({
           ) : null}
           {subtitle ? (
             <motion.p
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              initial={false}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
               className="text-sm text-neutral-600 dark:text-neutral-400"
@@ -354,7 +354,7 @@ export function Showcase3({
 
           {activeItem ? (
             <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              initial={false}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
               className="pointer-events-none mt-5 w-full text-center"

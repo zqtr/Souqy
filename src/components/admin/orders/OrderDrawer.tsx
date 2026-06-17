@@ -235,9 +235,6 @@ export function OrderDrawer({ open, order, onClose }: Props) {
                       order.shippingQar === 0 ? 'Free' : `${order.currency} ${order.shippingQar}`
                     }
                   />
-                  {order.platformFeeQar > 0 ? (
-                    <Row label="Souqna fee" value={`${order.currency} ${order.platformFeeQar}`} />
-                  ) : null}
                   <Row strong label="Total" value={`${order.currency} ${order.totalQar}`} />
                 </div>
               </Section>

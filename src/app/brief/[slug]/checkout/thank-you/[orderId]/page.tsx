@@ -277,12 +277,6 @@ export default async function ThankYouPage({ params, searchParams }: Props) {
                   : `${order.currency} ${order.shippingQar}`
               }
             />
-            {order.platformFeeQar > 0 ? (
-              <TotalRow
-                label={isAr ? 'رسوم سوقنا' : 'Souqna fee'}
-                value={`${order.currency} ${order.platformFeeQar}`}
-              />
-            ) : null}
             <TotalRow
               strong
               label={isAr ? 'الإجمالي' : 'Total'}

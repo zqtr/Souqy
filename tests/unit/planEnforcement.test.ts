@@ -60,13 +60,13 @@ describe('plan enforcement helpers', () => {
     });
   });
 
-  it('adds non-COD checkout fees to the buyer total while keeping seller net at order base', () => {
+  it('waives public checkout fees so the buyer total stays at order base', () => {
     expect(checkoutOrderFeeSnapshot('free', 200, 'skipcash')).toMatchObject({
       planSnapshot: 'free',
-      platformFeeBps: 500,
-      platformFeeQar: 10,
+      platformFeeBps: 0,
+      platformFeeQar: 0,
       sellerNetQar: 200,
-      buyerTotalQar: 210,
+      buyerTotalQar: 200,
       feeBaseQar: 200,
       collectionMode: 'platform_skipcash',
       platformProvider: 'skipcash',

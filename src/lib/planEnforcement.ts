@@ -98,25 +98,21 @@ export function orderFeeSnapshot(
 }
 
 export function checkoutOrderFeeSnapshot(
-  plan: Plan,
+  _plan: Plan,
   feeBaseQar: number,
   paymentMethod: string,
   options: { platformSkipCash?: boolean } = {},
 ): CheckoutOrderFeeSnapshot {
   const collection = checkoutCollectionSnapshot(paymentMethod, options);
-  const codFeeWaived = paymentMethod === 'cod';
   const safeBase = Math.max(0, Math.round(feeBaseQar));
-  const platformFeeBps = codFeeWaived ? 0 : platformFeeBpsForPlan(plan);
-  const platformFeeQar = codFeeWaived ? 0 : platformFeeForTotal(safeBase, plan);
-  const buyerTotalQar = safeBase + platformFeeQar;
   return {
-    planSnapshot: plan,
-    platformFeeBps,
-    platformFeeQar,
+    planSnapshot: _plan,
+    platformFeeBps: 0,
+    platformFeeQar: 0,
     sellerNetQar: safeBase,
     collectionMode: collection.collectionMode,
     platformProvider: collection.platformProvider,
-    buyerTotalQar,
+    buyerTotalQar: safeBase,
     feeBaseQar: safeBase,
   };
 }

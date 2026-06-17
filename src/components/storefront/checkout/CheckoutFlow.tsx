@@ -52,7 +52,11 @@ type BuyerConsentState = {
 };
 type AppliedDiscount = Extract<PreviewCheckoutDiscountResult, { status: 'success' }>;
 
-const ALWAYS_REQUIRED_POLICY_KEYS = ['terms', 'privacy', 'refund'] as const satisfies readonly PolicyKey[];
+const ALWAYS_REQUIRED_POLICY_KEYS = [
+  'terms',
+  'privacy',
+  'refund',
+] as const satisfies readonly PolicyKey[];
 
 const COUNTRIES = [
   'Qatar',
@@ -130,7 +134,6 @@ function getStrings(locale: 'en' | 'ar') {
       orderSummary: 'ملخص الطلب',
       subtotal: 'المجموع الفرعي',
       shipping: 'الشحن',
-      souqnaFee: 'رسوم سوقنا',
       total: 'الإجمالي',
       noShipping: 'مجاني',
       contactSummary: 'العميل',
@@ -174,7 +177,8 @@ function getStrings(locale: 'en' | 'ar') {
     invalidPhone: 'Enter a valid phone number',
     invalidEmail: 'Enter a valid email',
     acceptedPolicies: 'Required agreements',
-    mustAccept: 'Please accept every required agreement and message opt-in before placing the order.',
+    mustAccept:
+      'Please accept every required agreement and message opt-in before placing the order.',
     consentTitle: 'Checkout consent',
     consentSubtitle: 'Required for every Souqna order.',
     consentRequired: 'Required',
@@ -183,13 +187,13 @@ function getStrings(locale: 'en' | 'ar') {
       'I accept cookies for cart memory, store preferences, fraud prevention, and checkout continuity.',
     consentMarketing:
       'I agree to receive order updates, customer care, and store offers by SMS, WhatsApp, or RCS.',
-    consentFootnote: 'These choices are saved with the order so the store knows how to contact you.',
+    consentFootnote:
+      'These choices are saved with the order so the store knows how to contact you.',
     cartEmpty: 'Your cart is empty.',
     goShop: 'Back to the storefront',
     orderSummary: 'Order summary',
     subtotal: 'Subtotal',
     shipping: 'Shipping',
-    souqnaFee: 'Souqna fee',
     total: 'Total',
     noShipping: 'Free',
     contactSummary: 'Customer',
@@ -206,7 +210,6 @@ export function CheckoutFlow({
   locale,
   checkout,
   policies,
-  platformFeeBps,
 }: {
   storefrontSlug: string;
   /**
@@ -220,7 +223,6 @@ export function CheckoutFlow({
   locale: 'en' | 'ar';
   checkout: CheckoutSettings;
   policies: StorefrontPolicies;
-  platformFeeBps: number;
 }) {
   const cart = useCart();
   const router = useRouter();
@@ -293,9 +295,7 @@ export function CheckoutFlow({
   const totalDiscount = appliedDiscount?.totalDiscountQar ?? 0;
   const discountedSubtotal = Math.max(subtotal - subtotalDiscount, 0);
   const discountedShipping = Math.max(shipping - shippingDiscount, 0);
-  const feeBaseTotal = discountedSubtotal + discountedShipping;
-  const platformFee = checkoutPlatformFee(feeBaseTotal, paymentMethod, platformFeeBps);
-  const total = feeBaseTotal + platformFee;
+  const total = discountedSubtotal + discountedShipping;
 
   function go(next: number) {
     setError(null);
@@ -322,7 +322,9 @@ export function CheckoutFlow({
 
   const requiredPolicyKeys = requiredCheckoutPolicies(checkout.requiredPolicies);
   const requiredAccepted =
-    requiredPolicyKeys.every((p) => accepted[p]) && buyerConsents.cookies && buyerConsents.marketing;
+    requiredPolicyKeys.every((p) => accepted[p]) &&
+    buyerConsents.cookies &&
+    buyerConsents.marketing;
 
   function applyPromoCode() {
     const code = promoCode.trim();
@@ -369,8 +371,7 @@ export function CheckoutFlow({
     }
     const acceptedKeys = requiredPolicyKeys.filter((k) => accepted[k]);
     if (buyerConsents.cookies) {
-      document.cookie =
-        'souqna-checkout-consent=accepted; path=/; max-age=31536000; SameSite=Lax';
+      document.cookie = 'souqna-checkout-consent=accepted; path=/; max-age=31536000; SameSite=Lax';
     }
     start(async () => {
       const result = await createOrder({
@@ -409,12 +410,12 @@ export function CheckoutFlow({
       });
 
       if (result.status === 'success') {
-      if (result.redirectUrl) {
-        window.location.href = result.redirectUrl;
-        return;
-      }
-      cart.clear();
-      router.push(`${checkoutRootHref}/thank-you/${result.orderId}`);
+        if (result.redirectUrl) {
+          window.location.href = result.redirectUrl;
+          return;
+        }
+        cart.clear();
+        router.push(`${checkoutRootHref}/thank-you/${result.orderId}`);
         return;
       }
       setError({ message: result.message, field: result.field });
@@ -546,7 +547,6 @@ export function CheckoutFlow({
           discountPending={discountPending}
           onApplyPromo={applyPromoCode}
           onRemovePromo={removePromoCode}
-          platformFee={platformFee}
           total={total}
         />
       </div>
@@ -1152,8 +1152,7 @@ function BuyerConsentCard({
         overflow: 'hidden',
         background:
           'linear-gradient(135deg, color-mix(in srgb, var(--sf-accent, #b8892d) 16%, var(--sf-ground, #f7efe2)), color-mix(in srgb, var(--sf-ground, #f7efe2) 92%, transparent))',
-        boxShadow:
-          '0 18px 44px color-mix(in srgb, var(--sf-ink, #23170f) 12%, transparent)',
+        boxShadow: '0 18px 44px color-mix(in srgb, var(--sf-ink, #23170f) 12%, transparent)',
       }}
     >
       <legend className="sr-only">{t.acceptedPolicies}</legend>
@@ -1630,7 +1629,6 @@ function OrderSummary({
   discountPending,
   onApplyPromo,
   onRemovePromo,
-  platformFee,
   total,
 }: {
   t: Strings;
@@ -1646,7 +1644,6 @@ function OrderSummary({
   discountPending: boolean;
   onApplyPromo: () => void;
   onRemovePromo: () => void;
-  platformFee: number;
   total: number;
 }) {
   return (
@@ -1781,21 +1778,10 @@ function OrderSummary({
         {discount > 0 ? (
           <Row label={PROMO_COPY.discount} value={`- ${currency} ${discount}`} />
         ) : null}
-        {items.length > 0 || platformFee > 0 ? (
-          <Row label={t.souqnaFee} value={`${currency} ${platformFee}`} />
-        ) : null}
         <Row strong label={t.total} value={`${currency} ${total}`} />
       </div>
     </aside>
   );
-}
-
-function checkoutPlatformFee(totalQar: number, paymentMethod: PaymentMethod, feeBps: number): number {
-  if (paymentMethod === 'cod') return 0;
-  const safeTotal = Math.max(0, Math.round(totalQar));
-  const safeBps = Math.max(0, Math.round(feeBps));
-  if (safeTotal === 0 || safeBps === 0) return 0;
-  return Math.round((safeTotal * safeBps) / 10_000);
 }
 
 function promoButtonStyle(disabled: boolean): React.CSSProperties {
@@ -1807,7 +1793,9 @@ function promoButtonStyle(disabled: boolean): React.CSSProperties {
     background: disabled
       ? 'color-mix(in srgb, currentColor 8%, transparent)'
       : 'var(--sf-ink, #111)',
-    color: disabled ? 'color-mix(in srgb, currentColor 45%, transparent)' : 'var(--sf-ground, #fff)',
+    color: disabled
+      ? 'color-mix(in srgb, currentColor 45%, transparent)'
+      : 'var(--sf-ground, #fff)',
     fontSize: 12,
     fontWeight: 600,
     cursor: disabled ? 'not-allowed' : 'pointer',

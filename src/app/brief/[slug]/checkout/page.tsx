@@ -1,16 +1,12 @@
 import { notFound } from 'next/navigation';
 import { getStorefront } from '@/lib/brief';
-import {
-  getStorefrontCheckoutSettings,
-  getStorefrontPolicies,
-} from '@/lib/storefrontSettings';
+import { getStorefrontCheckoutSettings, getStorefrontPolicies } from '@/lib/storefrontSettings';
 import { palettes, paletteCssVars, type PaletteId } from '@/lib/palettes';
 import type { Theme } from '@/lib/theme';
 import { getServerTheme } from '@/components/theme/ServerThemeScript';
 import { CheckoutFlow } from '@/components/storefront/checkout/CheckoutFlow';
 import { CartProvider } from '@/components/storefront/cart/CartContext';
 import { storefrontBaseUrl } from '@/lib/storefrontUrl';
-import { getPlan, platformFeeBpsForPlan } from '@/lib/billing';
 import { checkoutThemeForBackground } from '@/lib/storefrontCheckoutTheme';
 
 export const dynamic = 'force-dynamic';
@@ -34,11 +30,10 @@ export default async function CheckoutPage({ params }: Props) {
   if (!storefront) notFound();
   if (!storefront.isPublished) notFound();
 
-  const [rawCheckout, policies, visitorTheme, ownerPlan] = await Promise.all([
+  const [rawCheckout, policies, visitorTheme] = await Promise.all([
     getStorefrontCheckoutSettings(slug),
     getStorefrontPolicies(slug),
     getServerTheme(),
-    getPlan(storefront.clerkUserId),
   ]);
   const checkout = {
     ...rawCheckout,
@@ -148,7 +143,6 @@ export default async function CheckoutPage({ params }: Props) {
             locale={storefront.locale}
             checkout={checkout}
             policies={policies}
-            platformFeeBps={platformFeeBpsForPlan(ownerPlan)}
           />
         </CartProvider>
       </main>

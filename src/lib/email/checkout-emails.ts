@@ -113,14 +113,6 @@ function itemsTable(order: Order): { html: string; text: string } {
         <td dir="auto" style="padding:4px 0;color:#555;">Shipping</td>
         <td style="padding:4px 0;text-align:end;">${formatMoney(order.shippingQar, order.currency)}</td>
       </tr>
-      ${
-        order.platformFeeQar > 0
-          ? `<tr>
-        <td dir="auto" style="padding:4px 0;color:#555;">Souqna fee</td>
-        <td style="padding:4px 0;text-align:end;">${formatMoney(order.platformFeeQar, order.currency)}</td>
-      </tr>`
-          : ''
-      }
       <tr>
         <td dir="auto" style="padding:8px 0;font-weight:600;">Total</td>
         <td style="padding:8px 0;text-align:end;font-weight:600;">${formatMoney(order.totalQar, order.currency)}</td>
@@ -140,9 +132,6 @@ function itemsTable(order: Order): { html: string; text: string } {
     }),
     `Subtotal: ${formatMoney(order.subtotalQar, order.currency)}`,
     `Shipping: ${formatMoney(order.shippingQar, order.currency)}`,
-    ...(order.platformFeeQar > 0
-      ? [`Souqna fee: ${formatMoney(order.platformFeeQar, order.currency)}`]
-      : []),
     `Total: ${formatMoney(order.totalQar, order.currency)}`,
   ].join('\n');
   return { html, text };

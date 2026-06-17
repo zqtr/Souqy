@@ -34,6 +34,15 @@ import {
 import { getPlan } from '@/lib/billing';
 import { checkoutOrderFeeSnapshot, monthlyOrderCapFailure } from '@/lib/planEnforcement';
 import {
+  claimDiscountUse,
+  evaluateCheckoutDiscount,
+  getDiscountByCode,
+  normalizeDiscountCode,
+  releaseDiscountUse,
+  type CheckoutDiscountLine,
+  type Discount,
+} from '@/lib/discounts';
+import {
   sendNewOrderToOwner,
   sendOrderConfirmationToBuyer,
   type PaymentInstructionBlock,
@@ -110,6 +119,13 @@ const CreateOrderSchema = z.object({
   customer: CustomerSchema,
   address: AddressSchema,
   paymentMethod: z.enum(PAYMENT_METHODS as unknown as [PaymentMethod, ...PaymentMethod[]]),
+  discountCode: z
+    .string()
+    .trim()
+    .max(64)
+    .regex(/^[A-Za-z0-9_\-]+$/)
+    .optional()
+    .nullable(),
   acceptedPolicies: z
     .array(z.enum(POLICY_KEYS as unknown as [PolicyKey, ...PolicyKey[]]))
     .max(POLICY_KEYS.length),
@@ -121,6 +137,64 @@ export type CreateOrderInput = z.input<typeof CreateOrderSchema>;
 export type CreateOrderResult =
   | { status: 'success'; orderId: string; redirectUrl?: string }
   | { status: 'error'; message: string; field?: string };
+
+const PreviewDiscountSchema = z.object({
+  slug: z.string().trim().min(1).max(64),
+  code: z.string().trim().min(1).max(64).regex(/^[A-Za-z0-9_\-]+$/),
+  items: z.array(ItemSchema.pick({ productId: true, quantity: true })).min(1).max(40),
+});
+
+export type PreviewCheckoutDiscountResult =
+  | {
+      status: 'success';
+      code: string;
+      title: string | null;
+      subtotalDiscountQar: number;
+      shippingDiscountQar: number;
+      totalDiscountQar: number;
+    }
+  | { status: 'error'; message: string; field?: string };
+
+export async function previewCheckoutDiscount(
+  input: z.input<typeof PreviewDiscountSchema>,
+): Promise<PreviewCheckoutDiscountResult> {
+  const parsed = PreviewDiscountSchema.safeParse(input);
+  if (!parsed.success) {
+    const issue = parsed.error.issues[0];
+    return {
+      status: 'error',
+      message: issue?.message ?? 'Invalid promo code.',
+      field: issue?.path.join('.'),
+    };
+  }
+
+  const data = parsed.data;
+  const settings = await getStorefrontCheckoutSettings(data.slug);
+  const discount = await getDiscountByCode(data.slug, data.code);
+  if (!discount) {
+    return { status: 'error', message: 'Enter a valid promo code.', field: 'discountCode' };
+  }
+
+  const { subtotalQar, lines } = await buildCheckoutDiscountLines(data.slug, data.items);
+  const evaluation = evaluateCheckoutDiscount({
+    discount,
+    subtotalQar,
+    shippingQar: settings.shippingFlatQar ?? 0,
+    lines,
+  });
+  if (evaluation.status === 'error') {
+    return { status: 'error', message: evaluation.message, field: 'discountCode' };
+  }
+
+  return {
+    status: 'success',
+    code: evaluation.discount.code,
+    title: evaluation.discount.title,
+    subtotalDiscountQar: evaluation.subtotalDiscountQar,
+    shippingDiscountQar: evaluation.shippingDiscountQar,
+    totalDiscountQar: evaluation.totalDiscountQar,
+  };
+}
 
 /**
  * Public checkout — runs unauthenticated (the buyer is anonymous).
@@ -245,6 +319,7 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
     price_qar: string | null;
     pricing_mode: 'one_time' | 'monthly_payment';
     monthly_price_qar: string | null;
+    category_ids?: string[] | null;
     size_options?: unknown;
     allow_custom_size?: boolean | null;
     requires_height_input?: boolean | null;
@@ -255,7 +330,12 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
   const productRows = (await db()`
     select
       id, title, price_qar, pricing_mode, monthly_price_qar, size_options,
-      allow_custom_size, requires_height_input, height_input_label, height_options, status
+      allow_custom_size, requires_height_input, height_input_label, height_options, status,
+      (
+        select coalesce(array_agg(pc.category_id::text), '{}'::text[])
+        from product_categories pc
+        where pc.product_id = products.id
+      ) as category_ids
     from products
     where storefront_slug = ${data.slug}
       and id = any(${productIds as unknown as string}::uuid[])
@@ -320,6 +400,7 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
 
   let subtotalQar = 0;
   let hasMonthlyPaymentItem = false;
+  const discountLines: CheckoutDiscountLine[] = [];
   const itemRows = data.items.map((it) => {
     const product = byId.get(it.productId);
     if (!product) {
@@ -332,6 +413,11 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
     const unit = Math.round(Number(rawUnit));
     const lineTotal = unit * it.quantity;
     subtotalQar += lineTotal;
+    discountLines.push({
+      productId: product.id,
+      lineTotalQar: lineTotal,
+      categoryIds: product.category_ids ?? [],
+    });
     const customInputs: Record<string, string> =
       product.requires_height_input === true
         ? {
@@ -352,7 +438,7 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
     };
   });
 
-  const { shippingQar, taxQar, totalQar: feeBaseQar } = await calculateCheckoutTotals({
+  const { shippingQar: baseShippingQar } = await calculateCheckoutTotals({
     slug: data.slug,
     subtotalQar,
     fallbackShippingQar: settings.shippingFlatQar ?? 0,
@@ -375,6 +461,64 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
     };
   }
 
+  let discount: Discount | null = null;
+  let subtotalDiscountQar = 0;
+  let shippingDiscountQar = 0;
+  let totalDiscountQar = 0;
+  let discountClaimed = false;
+  const requestedDiscountCode = data.discountCode ? normalizeDiscountCode(data.discountCode) : null;
+  if (requestedDiscountCode) {
+    discount = await getDiscountByCode(data.slug, requestedDiscountCode);
+    if (!discount) {
+      return { status: 'error', message: 'Enter a valid promo code.', field: 'discountCode' };
+    }
+    const evaluation = evaluateCheckoutDiscount({
+      discount,
+      subtotalQar,
+      shippingQar: baseShippingQar,
+      lines: discountLines,
+    });
+    if (evaluation.status === 'error') {
+      return { status: 'error', message: evaluation.message, field: 'discountCode' };
+    }
+    if (
+      discount.perCustomerLimit !== null &&
+      (await countCustomerDiscountUses({
+        slug: data.slug,
+        discountId: discount.id,
+        phone: data.customer.phone,
+        email: data.customer.email ?? null,
+      })) >= discount.perCustomerLimit
+    ) {
+      return {
+        status: 'error',
+        message: 'This code has already been used by this customer.',
+        field: 'discountCode',
+      };
+    }
+    discountClaimed = await claimDiscountUse(data.slug, discount.id);
+    if (!discountClaimed) {
+      return {
+        status: 'error',
+        message: 'This code has reached its usage limit.',
+        field: 'discountCode',
+      };
+    }
+    subtotalDiscountQar = evaluation.subtotalDiscountQar;
+    shippingDiscountQar = evaluation.shippingDiscountQar;
+    totalDiscountQar = evaluation.totalDiscountQar;
+  }
+
+  const discountedSubtotalQar = Math.max(subtotalQar - subtotalDiscountQar, 0);
+  const discountedShippingQar = Math.max(baseShippingQar - shippingDiscountQar, 0);
+  const { shippingQar, taxQar, totalQar: feeBaseQar } = await calculateCheckoutTotals({
+    slug: data.slug,
+    subtotalQar: discountedSubtotalQar,
+    fallbackShippingQar: discountedShippingQar,
+    overrideShippingQar: discountedShippingQar,
+    address: data.address,
+  });
+
   const feeSnapshot = checkoutOrderFeeSnapshot(ownerPlan, feeBaseQar, data.paymentMethod);
   const { buyerTotalQar: totalQar, feeBaseQar: feeBaseSnapshotQar, ...orderFeeFields } = feeSnapshot;
 
@@ -391,6 +535,22 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
       source: 'checkout',
     },
   };
+  const discountMetadata =
+    discount && totalDiscountQar > 0
+      ? {
+          discount: {
+            id: discount.id,
+            code: discount.code,
+            title: discount.title,
+            valueType: discount.valueType,
+            subtotalDiscountQar,
+            shippingDiscountQar,
+            totalDiscountQar,
+            rawSubtotalQar: subtotalQar,
+            rawShippingQar: baseShippingQar,
+          },
+        }
+      : {};
   let order;
   try {
     order = await createOrderRow({
@@ -403,7 +563,7 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
       address: data.address as OrderAddress,
       paymentMethod: data.paymentMethod,
       currency: settings.currency,
-      subtotalQar,
+      subtotalQar: discountedSubtotalQar,
       shippingQar,
       taxQar,
       totalQar,
@@ -418,6 +578,7 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
             feeBaseQar: feeBaseSnapshotQar,
             platformFeeAddedToCheckout: orderFeeFields.platformFeeQar > 0,
             ...consentMetadata,
+            ...discountMetadata,
           }
         : data.paymentMethod === 'sadad'
           ? {
@@ -426,6 +587,7 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
               feeBaseQar: feeBaseSnapshotQar,
               platformFeeAddedToCheckout: orderFeeFields.platformFeeQar > 0,
               ...consentMetadata,
+              ...discountMetadata,
             }
           : hasMonthlyPaymentItem
             ? {
@@ -433,15 +595,20 @@ export async function createOrder(input: CreateOrderInput): Promise<CreateOrderR
                 feeBaseQar: feeBaseSnapshotQar,
                 platformFeeAddedToCheckout: orderFeeFields.platformFeeQar > 0,
                 ...consentMetadata,
+                ...discountMetadata,
               }
             : {
                 feeBaseQar: feeBaseSnapshotQar,
                 platformFeeAddedToCheckout: orderFeeFields.platformFeeQar > 0,
                 ...consentMetadata,
+                ...discountMetadata,
               },
       items: itemRows,
     });
   } catch (err) {
+    if (discountClaimed && discount) {
+      await releaseDiscountUse(data.slug, discount.id);
+    }
     Sentry.captureException(err, {
       tags: { area: 'checkout', slug: data.slug },
     });
@@ -848,54 +1015,134 @@ function labelMethod(method: PaymentMethod): string {
   }
 }
 
+async function buildCheckoutDiscountLines(
+  slug: string,
+  items: Array<{ productId: string; quantity: number }>,
+): Promise<{ subtotalQar: number; lines: CheckoutDiscountLine[] }> {
+  const productIds = items.map((item) => item.productId);
+  if (productIds.length === 0) return { subtotalQar: 0, lines: [] };
+
+  const rows = (await db()`
+    select
+      id,
+      price_qar,
+      pricing_mode,
+      monthly_price_qar,
+      (
+        select coalesce(array_agg(pc.category_id::text), '{}'::text[])
+        from product_categories pc
+        where pc.product_id = products.id
+      ) as category_ids
+    from products
+    where storefront_slug = ${slug}
+      and status = 'active'
+      and id = any(${productIds as unknown as string}::uuid[])
+  `) as unknown as Array<{
+    id: string;
+    price_qar: string | null;
+    pricing_mode: 'one_time' | 'monthly_payment';
+    monthly_price_qar: string | null;
+    category_ids: string[] | null;
+  }>;
+
+  const byId = new Map(rows.map((row) => [row.id, row]));
+  let subtotalQar = 0;
+  const lines: CheckoutDiscountLine[] = [];
+  for (const item of items) {
+    const product = byId.get(item.productId);
+    if (!product) continue;
+    const rawUnit =
+      product.pricing_mode === 'monthly_payment' ? product.monthly_price_qar : product.price_qar;
+    if (rawUnit === null) continue;
+    const lineTotalQar = Math.max(0, Math.round(Number(rawUnit))) * item.quantity;
+    subtotalQar += lineTotalQar;
+    lines.push({
+      productId: product.id,
+      lineTotalQar,
+      categoryIds: product.category_ids ?? [],
+    });
+  }
+
+  return { subtotalQar, lines };
+}
+
+async function countCustomerDiscountUses({
+  slug,
+  discountId,
+  phone,
+  email,
+}: {
+  slug: string;
+  discountId: number;
+  phone: string;
+  email: string | null;
+}): Promise<number> {
+  const rows = (await db()`
+    select count(*)::int as n
+    from checkout_orders
+    where storefront_slug = ${slug}
+      and order_status <> 'cancelled'
+      and metadata->'discount'->>'id' = ${String(discountId)}
+      and (
+        customer_phone = ${phone}
+        or (${email}::text is not null and customer_email = ${email})
+      )
+  `) as unknown as { n: number }[];
+  return Number(rows[0]?.n ?? 0);
+}
+
 async function calculateCheckoutTotals({
   slug,
   subtotalQar,
   fallbackShippingQar,
+  overrideShippingQar,
   address,
 }: {
   slug: string;
   subtotalQar: number;
   fallbackShippingQar: number;
+  overrideShippingQar?: number;
   address: z.infer<typeof AddressSchema>;
 }): Promise<{ shippingQar: number; taxQar: number; totalQar: number }> {
-  let shippingQar = fallbackShippingQar;
+  let shippingQar = overrideShippingQar ?? fallbackShippingQar;
 
-  try {
-    const shipping = await getShippingSettings(slug);
-    if (shipping.profile?.enabled) {
-      const country = normalizeCountryCode(address.country);
-      const city = address.city.trim().toLowerCase();
-      const matchingRate =
-        shipping.rates.find(
-          (rate) =>
-            rate.enabled &&
-            rate.countryCode.toUpperCase() === country &&
-            (!rate.city || rate.city.trim().toLowerCase() === city) &&
-            (rate.minSubtotalQar === null || subtotalQar >= rate.minSubtotalQar) &&
-            (rate.maxSubtotalQar === null || subtotalQar <= rate.maxSubtotalQar),
-        ) ??
-        shipping.rates.find(
-          (rate) =>
-            rate.enabled &&
-            rate.countryCode.toUpperCase() === country &&
-            (rate.minSubtotalQar === null || subtotalQar >= rate.minSubtotalQar) &&
-            (rate.maxSubtotalQar === null || subtotalQar <= rate.maxSubtotalQar),
-        ) ??
-        shipping.rates.find((rate) => rate.enabled);
+  if (overrideShippingQar === undefined) {
+    try {
+      const shipping = await getShippingSettings(slug);
+      if (shipping.profile?.enabled) {
+        const country = normalizeCountryCode(address.country);
+        const city = address.city.trim().toLowerCase();
+        const matchingRate =
+          shipping.rates.find(
+            (rate) =>
+              rate.enabled &&
+              rate.countryCode.toUpperCase() === country &&
+              (!rate.city || rate.city.trim().toLowerCase() === city) &&
+              (rate.minSubtotalQar === null || subtotalQar >= rate.minSubtotalQar) &&
+              (rate.maxSubtotalQar === null || subtotalQar <= rate.maxSubtotalQar),
+          ) ??
+          shipping.rates.find(
+            (rate) =>
+              rate.enabled &&
+              rate.countryCode.toUpperCase() === country &&
+              (rate.minSubtotalQar === null || subtotalQar >= rate.minSubtotalQar) &&
+              (rate.maxSubtotalQar === null || subtotalQar <= rate.maxSubtotalQar),
+          ) ??
+          shipping.rates.find((rate) => rate.enabled);
 
-      if (matchingRate) {
-        shippingQar = matchingRate.amountQar;
+        if (matchingRate) {
+          shippingQar = matchingRate.amountQar;
+        }
+        if (
+          shipping.profile.freeShippingMinQar !== null &&
+          subtotalQar >= shipping.profile.freeShippingMinQar
+        ) {
+          shippingQar = 0;
+        }
       }
-      if (
-        shipping.profile.freeShippingMinQar !== null &&
-        subtotalQar >= shipping.profile.freeShippingMinQar
-      ) {
-        shippingQar = 0;
-      }
+    } catch (err) {
+      Sentry.captureException(err, { tags: { area: 'checkout-shipping', slug } });
     }
-  } catch (err) {
-    Sentry.captureException(err, { tags: { area: 'checkout-shipping', slug } });
   }
 
   let taxQar = 0;

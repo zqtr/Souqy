@@ -3,7 +3,11 @@
 import { useEffect, useId, useRef, useState, useTransition } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '../cart/CartContext';
-import { createOrder } from '@/app/actions/checkout';
+import {
+  createOrder,
+  previewCheckoutDiscount,
+  type PreviewCheckoutDiscountResult,
+} from '@/app/actions/checkout';
 import type {
   CheckoutSettings,
   PaymentMethod,
@@ -46,6 +50,7 @@ type BuyerConsentState = {
   cookies: boolean;
   marketing: boolean;
 };
+type AppliedDiscount = Extract<PreviewCheckoutDiscountResult, { status: 'success' }>;
 
 const ALWAYS_REQUIRED_POLICY_KEYS = ['terms', 'privacy', 'refund'] as const satisfies readonly PolicyKey[];
 
@@ -62,6 +67,16 @@ const COUNTRIES = [
 ] as const;
 
 type Strings = ReturnType<typeof getStrings>;
+
+const PROMO_COPY = {
+  codeLabel: 'Promo code',
+  placeholder: 'WELCOME10',
+  apply: 'Apply',
+  remove: 'Remove',
+  discount: 'Discount',
+  invalid: 'Could not apply code',
+  applied: (code: string) => `${code} applied`,
+};
 
 function getStrings(locale: 'en' | 'ar') {
   if (locale === 'ar') {
@@ -241,9 +256,16 @@ export function CheckoutFlow({
     cookies: false,
     marketing: false,
   });
+  const [promoCode, setPromoCode] = useState('');
+  const [appliedDiscount, setAppliedDiscount] = useState<AppliedDiscount | null>(null);
+  const [discountError, setDiscountError] = useState<string | null>(null);
   const [error, setError] = useState<{ message: string; field?: string } | null>(null);
   const [pending, start] = useTransition();
+  const [discountPending, startDiscount] = useTransition();
   const liveRegionRef = useRef<HTMLDivElement | null>(null);
+  const cartSignature = cart.items
+    .map((item) => `${item.productId}:${item.quantity}:${item.variantLabel ?? ''}`)
+    .join('|');
 
   // Empty cart: bounce back to the storefront. We do this in an effect
   // so the cart can hydrate first — going off [].length === 0 at first
@@ -259,9 +281,19 @@ export function CheckoutFlow({
     }
   }, [cart.items.length, pending, router]);
 
+  useEffect(() => {
+    setAppliedDiscount(null);
+    setDiscountError(null);
+  }, [cartSignature]);
+
   const subtotal = cart.subtotalQar;
   const shipping = cart.items.length > 0 ? (checkout.shippingFlatQar ?? 0) : 0;
-  const feeBaseTotal = subtotal + shipping;
+  const subtotalDiscount = appliedDiscount?.subtotalDiscountQar ?? 0;
+  const shippingDiscount = appliedDiscount?.shippingDiscountQar ?? 0;
+  const totalDiscount = appliedDiscount?.totalDiscountQar ?? 0;
+  const discountedSubtotal = Math.max(subtotal - subtotalDiscount, 0);
+  const discountedShipping = Math.max(shipping - shippingDiscount, 0);
+  const feeBaseTotal = discountedSubtotal + discountedShipping;
   const platformFee = checkoutPlatformFee(feeBaseTotal, paymentMethod, platformFeeBps);
   const total = feeBaseTotal + platformFee;
 
@@ -291,6 +323,41 @@ export function CheckoutFlow({
   const requiredPolicyKeys = requiredCheckoutPolicies(checkout.requiredPolicies);
   const requiredAccepted =
     requiredPolicyKeys.every((p) => accepted[p]) && buyerConsents.cookies && buyerConsents.marketing;
+
+  function applyPromoCode() {
+    const code = promoCode.trim();
+    setDiscountError(null);
+    if (!code || cart.items.length === 0) {
+      setAppliedDiscount(null);
+      return;
+    }
+
+    startDiscount(async () => {
+      const result = await previewCheckoutDiscount({
+        slug: storefrontSlug,
+        code,
+        items: cart.items.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        })),
+      });
+
+      if (result.status === 'success') {
+        setAppliedDiscount(result);
+        setPromoCode(result.code);
+        setDiscountError(null);
+        return;
+      }
+      setAppliedDiscount(null);
+      setDiscountError(result.message || PROMO_COPY.invalid);
+    });
+  }
+
+  function removePromoCode() {
+    setAppliedDiscount(null);
+    setDiscountError(null);
+    setPromoCode('');
+  }
 
   function submit() {
     setError(null);
@@ -329,6 +396,7 @@ export function CheckoutFlow({
           notes: address.notes.trim() || null,
         },
         paymentMethod,
+        discountCode: appliedDiscount?.code ?? null,
         acceptedPolicies: acceptedKeys,
         consents: {
           terms: accepted.terms,
@@ -470,6 +538,14 @@ export function CheckoutFlow({
           currency={checkout.currency}
           subtotal={subtotal}
           shipping={shipping}
+          discount={totalDiscount}
+          promoCode={promoCode}
+          setPromoCode={setPromoCode}
+          appliedDiscount={appliedDiscount}
+          discountError={discountError}
+          discountPending={discountPending}
+          onApplyPromo={applyPromoCode}
+          onRemovePromo={removePromoCode}
           platformFee={platformFee}
           total={total}
         />
@@ -1446,12 +1522,114 @@ function ReviewBlock({ label, children }: { label: string; children: React.React
   );
 }
 
+function PromoCodeControl({
+  currency,
+  promoCode,
+  setPromoCode,
+  appliedDiscount,
+  discountError,
+  discountPending,
+  disabled,
+  onApplyPromo,
+  onRemovePromo,
+}: {
+  currency: string;
+  promoCode: string;
+  setPromoCode: (code: string) => void;
+  appliedDiscount: AppliedDiscount | null;
+  discountError: string | null;
+  discountPending: boolean;
+  disabled: boolean;
+  onApplyPromo: () => void;
+  onRemovePromo: () => void;
+}) {
+  return (
+    <div
+      style={{
+        marginTop: 14,
+        paddingTop: 12,
+        borderTop: '1px dashed color-mix(in srgb, currentColor 14%, transparent)',
+      }}
+    >
+      <label
+        htmlFor="souqna-promo-code"
+        style={{
+          display: 'block',
+          marginBottom: 6,
+          fontFamily: 'var(--font-mono)',
+          fontSize: 10.5,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          color: 'color-mix(in srgb, currentColor 58%, transparent)',
+        }}
+      >
+        {PROMO_COPY.codeLabel}
+      </label>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <input
+          id="souqna-promo-code"
+          value={promoCode}
+          onChange={(event) => {
+            setPromoCode(event.target.value.toUpperCase().replace(/\s+/g, ''));
+          }}
+          placeholder={PROMO_COPY.placeholder}
+          disabled={disabled || discountPending || appliedDiscount !== null}
+          style={{
+            minWidth: 0,
+            flex: 1,
+            height: 38,
+            borderRadius: 10,
+            border: '1px solid color-mix(in srgb, currentColor 16%, transparent)',
+            background: 'color-mix(in srgb, var(--sf-ground, transparent) 86%, white 14%)',
+            color: 'inherit',
+            padding: '0 10px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 12,
+            textTransform: 'uppercase',
+            outline: 'none',
+          }}
+        />
+        {appliedDiscount ? (
+          <button type="button" onClick={onRemovePromo} style={promoButtonStyle(false)}>
+            {PROMO_COPY.remove}
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={onApplyPromo}
+            disabled={disabled || discountPending || !promoCode.trim()}
+            style={promoButtonStyle(disabled || discountPending || !promoCode.trim())}
+          >
+            {discountPending ? '...' : PROMO_COPY.apply}
+          </button>
+        )}
+      </div>
+      {appliedDiscount ? (
+        <p style={promoMessageStyle('success')}>
+          {PROMO_COPY.applied(appliedDiscount.code)} · - {currency}{' '}
+          {appliedDiscount.totalDiscountQar}
+        </p>
+      ) : discountError ? (
+        <p style={promoMessageStyle('error')}>{discountError}</p>
+      ) : null}
+    </div>
+  );
+}
+
 function OrderSummary({
   t,
   items,
   currency,
   subtotal,
   shipping,
+  discount,
+  promoCode,
+  setPromoCode,
+  appliedDiscount,
+  discountError,
+  discountPending,
+  onApplyPromo,
+  onRemovePromo,
   platformFee,
   total,
 }: {
@@ -1460,6 +1638,14 @@ function OrderSummary({
   currency: string;
   subtotal: number;
   shipping: number;
+  discount: number;
+  promoCode: string;
+  setPromoCode: (code: string) => void;
+  appliedDiscount: AppliedDiscount | null;
+  discountError: string | null;
+  discountPending: boolean;
+  onApplyPromo: () => void;
+  onRemovePromo: () => void;
   platformFee: number;
   total: number;
 }) {
@@ -1567,6 +1753,18 @@ function OrderSummary({
         ))}
       </ul>
 
+      <PromoCodeControl
+        currency={currency}
+        promoCode={promoCode}
+        setPromoCode={setPromoCode}
+        appliedDiscount={appliedDiscount}
+        discountError={discountError}
+        discountPending={discountPending}
+        disabled={items.length === 0}
+        onApplyPromo={onApplyPromo}
+        onRemovePromo={onRemovePromo}
+      />
+
       <div
         style={{
           marginTop: 16,
@@ -1580,6 +1778,9 @@ function OrderSummary({
       >
         <Row label={t.subtotal} value={`${currency} ${subtotal}`} />
         <Row label={t.shipping} value={shipping === 0 ? t.noShipping : `${currency} ${shipping}`} />
+        {discount > 0 ? (
+          <Row label={PROMO_COPY.discount} value={`- ${currency} ${discount}`} />
+        ) : null}
         {items.length > 0 || platformFee > 0 ? (
           <Row label={t.souqnaFee} value={`${currency} ${platformFee}`} />
         ) : null}
@@ -1595,6 +1796,33 @@ function checkoutPlatformFee(totalQar: number, paymentMethod: PaymentMethod, fee
   const safeBps = Math.max(0, Math.round(feeBps));
   if (safeTotal === 0 || safeBps === 0) return 0;
   return Math.round((safeTotal * safeBps) / 10_000);
+}
+
+function promoButtonStyle(disabled: boolean): React.CSSProperties {
+  return {
+    width: 76,
+    height: 38,
+    borderRadius: 10,
+    border: '1px solid color-mix(in srgb, currentColor 16%, transparent)',
+    background: disabled
+      ? 'color-mix(in srgb, currentColor 8%, transparent)'
+      : 'var(--sf-ink, #111)',
+    color: disabled ? 'color-mix(in srgb, currentColor 45%, transparent)' : 'var(--sf-ground, #fff)',
+    fontSize: 12,
+    fontWeight: 600,
+    cursor: disabled ? 'not-allowed' : 'pointer',
+  };
+}
+
+function promoMessageStyle(kind: 'success' | 'error'): React.CSSProperties {
+  return {
+    margin: '7px 0 0',
+    fontSize: 12,
+    color:
+      kind === 'success'
+        ? 'color-mix(in srgb, currentColor 68%, transparent)'
+        : 'var(--color-maroon, #8b3a3a)',
+  };
 }
 
 function checkoutRootHrefForPath(pathname: string | null, storefrontSlug: string): string {

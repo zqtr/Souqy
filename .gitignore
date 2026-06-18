@@ -18,3 +18,16 @@ apps/*/.env.example
 apps/mobile/
 apps/pulse/
 .superpowers/
+
+# Prevent accidentally copying a Flutter app root into the Souqna web repo.
+/pubspec.yaml
+/pubspec.lock
+/android/
+/ios/
+/lib/
+/macos/
+/windows/
+/linux/
+*.apk
+*.aab
+*.ipa

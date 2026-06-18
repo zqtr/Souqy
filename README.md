@@ -47,6 +47,18 @@ Founder-facing narrative and integration inventory: [docs/README.md](docs/README
 
 If the dev server throws `Cannot find module './vendor-chunks/@vercel.js'` (or other missing files under `.next/server/vendor-chunks/`), stop the server, run `rm -rf .next`, and start `npm run dev` again — the output directory was partial or stale.
 
+## Production safety
+
+This repo is the Souqna web frontend for the `souqna` Vercel project. It must not be used as the Flutter/mobile app root, and mobile app folders must not be bundled into the web deployment for `souqna.qa`.
+
+Use the guarded commands:
+
+- `npm run guard:commit` before manual commits.
+- `npm run deploy:preview` for preview deployments.
+- `npm run deploy:prod` for production deployments.
+
+The guard verifies the package name, Git origin, Vercel project id, protected branch, clean production tree, and `.vercelignore` mobile exclusions. Local Git hooks are stored in `.githooks`; enable them with `git config core.hooksPath .githooks`.
+
 ## Related repo apps
 
 **CranL Runtime** - standalone Node.js worker/API service for Souqy Studio AI workloads and background generation tasks. It lives at [apps/cranl-runtime](apps/cranl-runtime/README.md) and deploys separately from the Vercel frontend.

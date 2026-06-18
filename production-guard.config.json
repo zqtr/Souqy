@@ -1,0 +1,67 @@
+{
+  "expectedPackageName": "souqna",
+  "expectedVercel": {
+    "orgId": "team_25fd9TtENLV3DtiWmPO89Zgn",
+    "projectId": "prj_1tPAsmWFNepOY6aMvqrpHkdD7RPO",
+    "projectName": "souqna"
+  },
+  "allowedGitRemotes": [
+    "https://github.com/zqtr/Souqy.git",
+    "git@github.com:zqtr/Souqy.git"
+  ],
+  "allowedCommitBranches": [
+    "main",
+    "feat/*",
+    "fix/*",
+    "hotfix/*",
+    "release/*"
+  ],
+  "allowedProductionBranches": [
+    "main"
+  ],
+  "requiredRootFiles": [
+    "package.json",
+    "package-lock.json",
+    "next.config.mjs",
+    "vercel.json",
+    "src/app"
+  ],
+  "blockedRootMarkers": [
+    "pubspec.yaml",
+    "pubspec.lock",
+    "android",
+    "ios",
+    "lib",
+    "macos",
+    "windows",
+    "linux"
+  ],
+  "blockedStagedPaths": [
+    ".env",
+    ".env.local",
+    ".vercel/project.json",
+    "pubspec.yaml",
+    "pubspec.lock",
+    "android/",
+    "ios/",
+    "lib/",
+    "macos/",
+    "windows/",
+    "linux/",
+    "apps/mobile/",
+    "apps/pulse/"
+  ],
+  "requiredVercelIgnoreEntries": [
+    "/apps/",
+    "pubspec.yaml",
+    "pubspec.lock",
+    "/android/",
+    "/ios/",
+    "/lib/"
+  ],
+  "protectedProductionDomains": [
+    "souqna.qa",
+    "www.souqna.qa",
+    "evare.souqna.qa"
+  ]
+}

@@ -36,6 +36,19 @@ _source/
 # sibling app workspaces are not part of the Next.js web deployment
 /apps/
 
+# Flutter/mobile roots must never be bundled into the web production deployment
+pubspec.yaml
+pubspec.lock
+/android/
+/ios/
+/lib/
+/macos/
+/windows/
+/linux/
+*.apk
+*.aab
+*.ipa
+
 # root-level design/source artifacts
 /*.png
 brand.html

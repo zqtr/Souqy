@@ -9,6 +9,10 @@
     "https://github.com/zqtr/Souqy.git",
     "git@github.com:zqtr/Souqy.git"
   ],
+  "expectedGit": {
+    "owner": "zqtr",
+    "repoSlug": "Souqy"
+  },
   "allowedCommitBranches": [
     "main",
     "feat/*",

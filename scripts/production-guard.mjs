@@ -185,6 +185,55 @@ function checkNoSouqnaSourceCrons() {
   }
 }
 
+function checkVercelBuildEnvironment(config) {
+  if (process.env.VERCEL !== '1') return;
+
+  const expected = config.expectedVercel;
+  const actualProjectId = process.env.VERCEL_PROJECT_ID;
+
+  if (actualProjectId && actualProjectId !== expected.projectId) {
+    fail('Vercel build is running under the wrong project.', [
+      `Expected project id: ${expected.projectId}`,
+      `Actual project id: ${actualProjectId}`,
+    ]);
+  }
+
+  if (process.env.VERCEL_ENV !== 'production') return;
+
+  const owner = process.env.VERCEL_GIT_REPO_OWNER;
+  const repoSlug = process.env.VERCEL_GIT_REPO_SLUG;
+  const branch = process.env.VERCEL_GIT_COMMIT_REF;
+  const productionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+
+  if (owner && owner.toLowerCase() !== config.expectedGit.owner.toLowerCase()) {
+    fail('Production Vercel build is from the wrong GitHub owner.', [
+      `Expected owner: ${config.expectedGit.owner}`,
+      `Actual owner: ${owner}`,
+    ]);
+  }
+
+  if (repoSlug && repoSlug.toLowerCase() !== config.expectedGit.repoSlug.toLowerCase()) {
+    fail('Production Vercel build is from the wrong GitHub repo.', [
+      `Expected repo: ${config.expectedGit.repoSlug}`,
+      `Actual repo: ${repoSlug}`,
+    ]);
+  }
+
+  if (branch && !config.allowedProductionBranches.some((pattern) => matchesPattern(branch, pattern))) {
+    fail('Production Vercel build is from a non-production branch.', [
+      `Allowed: ${config.allowedProductionBranches.join(', ')}`,
+      `Actual: ${branch}`,
+    ]);
+  }
+
+  if (productionUrl && !config.protectedProductionDomains.includes(productionUrl)) {
+    fail('Production Vercel build is targeting an unexpected production domain.', [
+      `Expected one of: ${config.protectedProductionDomains.join(', ')}`,
+      `Actual: ${productionUrl}`,
+    ]);
+  }
+}
+
 function readPrePushRefs() {
   if (mode !== 'push') return [];
   try {
@@ -226,6 +275,10 @@ if (mode === 'commit') {
     checkBranch(config, true);
     checkProductionCleanTree();
   }
+} else if (mode === 'build') {
+  checkVercelIgnore(config);
+  checkNoSouqnaSourceCrons();
+  checkVercelBuildEnvironment(config);
 } else {
   checkBranch(config);
   checkStagedPaths(config);

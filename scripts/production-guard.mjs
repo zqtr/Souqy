@@ -251,7 +251,9 @@ function readPrePushRefs() {
 const config = readJson(configPath);
 
 checkRootIdentity(config);
-checkGitIdentity(config);
+if (!(mode === 'build' && process.env.VERCEL === '1')) {
+  checkGitIdentity(config);
+}
 
 if (mode === 'commit') {
   checkBranch(config);
